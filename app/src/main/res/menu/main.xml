@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app = "http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_add"
+        android:icon="@drawable/add2"
+        android:title="Add"
+        app:showAsAction="ifRoom"
+        />
+
+    <item
+        android:id="@+id/action_category"
+        android:orderInCategory="100"
+        android:title="Category"
+        app:showAsAction = "never"
+        android:visible="true"/>
+
+    <item
+        android:id="@+id/action_option"
+        android:orderInCategory="101"
+        android:title="Option"
+        app:showAsAction = "never"
+        android:visible="true"/>
+
+    <item
+        android:id="@+id/action_account"
+        android:orderInCategory="102"
+        android:title="Account"
+        app:showAsAction = "never"
+        android:visible="true"/>
+</menu>
