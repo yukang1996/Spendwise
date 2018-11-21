@@ -1,10 +1,16 @@
 package my.edu.um.fsktm.spendwise;
 
+import android.content.Intent;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -14,6 +20,34 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.TB);
         myToolbar.setTitle("October");
+        View.OnClickListener listener = new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                Fragment fragment = null;
+                if(view == findViewById(R.id.transaction)){
+//                    fragment = new F
+                }
+                else if(view == findViewById(R.id.budget)){
+                    fragment = new FragmentBudget();
+                }
+                else if(view == findViewById(R.id.analyze)){
+
+                }
+                else{
+                    fragment = new FragmentOverview();
+                }
+                FragmentManager manager = getSupportFragmentManager();
+                FragmentTransaction transaction = manager.beginTransaction();
+                transaction.replace(R.id.FragOutput, fragment);
+                transaction.commit();
+            }
+        };
+
+        Button budget = (Button) findViewById(R.id.budget);
+        budget.setOnClickListener(listener);
+        Button overview = (Button) findViewById(R.id.overview);
+        overview.setOnClickListener(listener);
 
 
 
@@ -37,5 +71,10 @@ public class MainActivity extends AppCompatActivity {
             default: return super.onOptionsItemSelected(item);
 
         }
+    }
+
+    public void Budget(View view) {
+        Intent budgetIntent = new Intent(this, FragmentBudget.class);
+        startActivity(budgetIntent);
     }
 }

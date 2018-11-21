@@ -4,96 +4,102 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    tools:layout_editor_absoluteY="81dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.v7.widget.Toolbar
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
         android:id="@+id/TB"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        android:layout_width="0dp"
+        android:layout_height="44dp"
+        android:layout_marginBottom="3dp"
         android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        ></android.support.v7.widget.Toolbar>
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:layout_constraintBottom_toTopOf="@+id/edit_toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></android.support.v7.widget.Toolbar>
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/edit_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="63dp"
+        android:layout_marginBottom="187dp"
         android:background="#f3c699"
         android:minHeight="?android:attr/actionBarSize"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        android:layout_margin="0dp">
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/TB">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Overview"
-            android:layout_weight="1"
-            android:textSize="12sp"
-            android:layout_margin="0dp"
-            android:background="#f3c699"
-            android:textColor="#911a22"
-            android:drawableTop="@drawable/overview"
-            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Transaction"
-            android:layout_weight="1"
-            android:textSize="12sp"
-            android:layout_margin="0dp"
-            android:background="#f3c699"
-            android:textColor="#911a22"
-            android:drawableTop="@drawable/transaction"
-            />
+            <Button
+                android:id="@+id/overview"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="0dp"
+                android:layout_weight="1"
+                android:background="#f3c699"
+                android:drawableTop="@drawable/overview"
+                android:text="Overview"
+                android:textColor="#911a22"
+                android:textSize="12sp" />
 
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Budget"
-            android:layout_weight="1"
-            android:textSize="12sp"
-            android:layout_margin="0dp"
-            android:background="#f3c699"
-            android:textColor="#911a22"
-            android:drawableTop="@drawable/budget"
-            />
+            <Button
+                android:id="@+id/transaction"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="0dp"
+                android:layout_weight="1"
+                android:background="#f3c699"
+                android:drawableTop="@drawable/transaction"
+                android:text="Transaction"
+                android:textColor="#911a22"
+                android:textSize="12sp" />
 
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Analyze"
-            android:layout_weight="1"
-            android:textSize="12sp"
-            android:layout_margin="0dp"
-            android:background="#f3c699"
-            android:textColor="#911a22"
-            android:drawableTop="@drawable/analyze"
-            />
+            <Button
+                android:id="@+id/budget"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="0dp"
+                android:layout_weight="1"
+                android:background="#f3c699"
+                android:drawableTop="@drawable/budget"
+                android:text="Budget"
+                android:textColor="#911a22"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/analyze"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="0dp"
+                android:layout_weight="1"
+                android:background="#f3c699"
+                android:drawableTop="@drawable/analyze"
+                android:text="Analyze"
+                android:textColor="#911a22"
+                android:textSize="12sp" />
 
         </LinearLayout>
 
 
-
     </android.support.v7.widget.Toolbar>
 
-<ImageView
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:src="@drawable/over"/>
-
+    <FrameLayout
+        android:id="@+id/FragOutput"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="6dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_toolbar"></FrameLayout>
 
 
 </android.support.constraint.ConstraintLayout>
