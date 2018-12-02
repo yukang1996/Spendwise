@@ -18,13 +18,22 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     ArrayList<String> arraylist;
+    ArrayList<String> budgetlist;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         DatabaseFunction databaseFunction = new DatabaseFunction();
-        this.arraylist = databaseFunction.readFromFile("transaction.txt", this);
+        this.arraylist = databaseFunction.readTransFromFile("transaction.txt", this);
+        this.budgetlist = databaseFunction.readBudgFromFile("budget.txt", this);
+        if(this.budgetlist == null){
+            Log.d("Message", "FIrst time user");
+            Intent intent = new Intent(getApplicationContext(), AddBudget.class);
+            intent.putExtra("salary", budgetlist);
+            startActivityForResult(intent, 2);
+
+        }
         checkArrayList();
         Toolbar myToolbar = (Toolbar) findViewById(R.id.TB);
         myToolbar.setTitle("October");
@@ -65,7 +74,16 @@ public class MainActivity extends AppCompatActivity {
                 transaction.commit();
             }
         };
+        Button editBudget = (Button) findViewById(R.id.editBudget);
+        editBudget.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), AddBudget.class);
+                intent.putExtra("salary", budgetlist);
+                startActivityForResult(intent, 2);
 
+            }
+        });
         Button budget = (Button) findViewById(R.id.budget);
         budget.setOnClickListener(listener);
         Button transac = (Button) findViewById(R.id.transaction);
@@ -92,6 +110,12 @@ public class MainActivity extends AppCompatActivity {
                     Log.d("Array", this.arraylist.toString());
                 }
             }
+            if(requestCode == 2){
+                if(resultCode == RESULT_OK){
+                    this.budgetlist = data.getStringArrayListExtra("salary");
+                    Log.d("Salary", this.budgetlist.toString());
+                }
+            }
         }
 
 
@@ -107,6 +131,12 @@ public class MainActivity extends AppCompatActivity {
             }
             DatabaseFunction databaseFunction = new DatabaseFunction();
             databaseFunction.writeToFile("transaction.txt", database, this);
+
+            String budgetline = "";
+            for(int i = 0; i < budgetlist.size(); i++){
+                budgetline += budgetlist.get(i) +",";
+            }
+            databaseFunction.writeToFile("budget.txt", budgetline, this);
             Log.d("Close", "Safe and close.");
             super.onDestroy();
         }

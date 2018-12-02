@@ -8,4 +8,10 @@
     <string name="picture">Picture</string>
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
+    <string name="salary">Enter your Salary</string>
+    <string name="clothes">Clothes</string>
+    <string name="food">Food</string>
+    <string name="transport">Transport</string>
+    <string name="entertainment">Entertainment</string>
+    <string name="others">Others</string>
 </resources>

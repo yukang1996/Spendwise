@@ -23,13 +23,13 @@
         android:id="@+id/edit_toolbar"
         android:layout_width="0dp"
         android:layout_height="58dp"
-        android:layout_marginBottom="403dp"
+        android:layout_marginTop="50dp"
         android:background="#f3c699"
         android:minHeight="?android:attr/actionBarSize"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -94,23 +94,32 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="4dp"
         android:layout_marginRight="4dp"
-        android:layout_marginBottom="1dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/FragOutput"
         app:layout_constraintEnd_toEndOf="@+id/FragOutput"
-        app:layout_constraintTop_toBottomOf="@+id/edit_toolbar"
-        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/baseline_add_black_18dp" />
 
     <FrameLayout
         android:id="@+id/FragOutput"
         android:layout_width="0dp"
-        android:layout_height="398dp"
+        android:layout_height="0dp"
         android:layout_marginTop="4dp"
+        android:layout_marginBottom="1dp"
         android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_toolbar"></FrameLayout>
+
+    <Button
+        android:id="@+id/editBudget"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="Edit Budget"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </android.support.constraint.ConstraintLayout>

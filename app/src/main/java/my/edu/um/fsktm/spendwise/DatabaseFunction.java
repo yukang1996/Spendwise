@@ -39,7 +39,7 @@ public class DatabaseFunction {
 
     }
 
-    public ArrayList<String> readFromFile(String filename, Context context){
+    public ArrayList<String> readTransFromFile(String filename, Context context){
         File path = context.getFilesDir();
         File file = new File(path, filename);
         Log.d("Path", String.valueOf(file));
@@ -65,6 +65,36 @@ public class DatabaseFunction {
         for(int i = 0; i < al.size(); i++){
             Log.d("Array", al.get(i));
         }
+
+        return al;
+    }
+
+    public ArrayList<String> readBudgFromFile(String filename, Context context){
+        File path = context.getFilesDir();
+        File file = new File(path, filename);
+        Log.d("Path", String.valueOf(file));
+        String line = null;
+        ArrayList<String> al = new ArrayList<>();
+        try {
+            FileInputStream fis = new FileInputStream(file);
+            Scanner sc = new Scanner(fis);
+            line = sc.nextLine();
+
+            String temp[] = line.split(",");
+            for(int i = 0; i < temp.length; i++){
+                al.add(temp[i]);
+            }
+
+        } catch (FileNotFoundException e) {
+            Log.d("Error", "No file found.");
+            e.printStackTrace();
+            return null;
+        } catch (IOException e) {
+            Log.d("Error", "Error?");
+            e.printStackTrace();
+            return null;
+        }
+
 
         return al;
     }

@@ -17,6 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".AddTransaction"></activity>
+        <activity android:name=".AddBudget"></activity>
     </application>
 
 </manifest>
