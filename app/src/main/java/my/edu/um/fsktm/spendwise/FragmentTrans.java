@@ -2,7 +2,6 @@ package my.edu.um.fsktm.spendwise;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,11 +11,9 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-public class FragmentBudget extends Fragment implements AdapterView.OnItemClickListener {
+public class FragmentTrans extends Fragment implements AdapterView.OnItemClickListener {
     ArrayList al;
     ListView list;
     String date[];
@@ -25,8 +22,7 @@ public class FragmentBudget extends Fragment implements AdapterView.OnItemClickL
     String amount[];
     String notes[];
     String picture[];
-    final double salary = 3000.00;
-    HashMap<String, String> map = new HashMap<>();
+
 
 
     Integer[] imgid = {
@@ -36,7 +32,7 @@ public class FragmentBudget extends Fragment implements AdapterView.OnItemClickL
             R.drawable.ic_launcher_background,
     };
 
-    public FragmentBudget(){
+    public FragmentTrans(){
 
     }
 
@@ -48,13 +44,15 @@ public class FragmentBudget extends Fragment implements AdapterView.OnItemClickL
         else{
             al = new ArrayList();
         }
-        return inflater.inflate(R.layout.fragment_budget, container, false);
+        Log.d("Array", al.toString());
+        return inflater.inflate(R.layout.fragment_transaction, container, false);
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
 
         super.onActivityCreated(savedInstanceState);
+
         String[][] translist = new String[al.size()][];
         this.date = new String[al.size()];
         this.transaction_type = new String[al.size()];
@@ -71,38 +69,8 @@ public class FragmentBudget extends Fragment implements AdapterView.OnItemClickL
             notes[i] = translist[i][4];
             picture[i] = translist[i][5];
         }
-        for(int i = 0; i < category.length; i++){
-            if(map.containsKey(category[i])){
-                double value = Integer.parseInt(map.get(category[i]));
-                value += Double.parseDouble(amount[i]);
-                map.put(category[i], String.valueOf(value));
-            }
-            else{
-                map.put(category[i], amount[i]);
-            }
 
-        }
-        String final_category[] = new String[map.size()];
-        int percentage[] = new int[map.size()];
-        String temp_percentage[] = new String[map.size()];
-        int j = 0;
-        for(Map.Entry m: map.entrySet()){
-            Log.d("HashMap",m.getKey()+" "+m.getValue());
-            final_category[j] = (String) m.getKey();
-            temp_percentage[j] = (String) m.getValue();
-            j++;
-        }
-        for(int i = 0; i < final_category.length; i++){
-            Log.d("Final: ", final_category[i] + " and "+ percentage[i]);
-            double temp = Double.parseDouble(temp_percentage[i]);
-            temp = (temp / salary) * 100;
-            percentage[i] = (int) temp;
-        }
-
-
-
-
-        BudgetRecordAdapter adapter = new BudgetRecordAdapter(getActivity(), final_category, imgid, percentage);
+        TransactionRecordAdapter adapter = new TransactionRecordAdapter(getActivity(), amount, imgid, transaction_type, date);
         list = (ListView) getActivity().findViewById(R.id.list);
         list.setAdapter(adapter);
 
@@ -116,4 +84,11 @@ public class FragmentBudget extends Fragment implements AdapterView.OnItemClickL
         String selectedItem = amount[+position];
         Toast.makeText(getActivity(), selectedItem, Toast.LENGTH_SHORT).show();
     }
+
+
+
+
+
+
+
 }

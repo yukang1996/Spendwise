@@ -1,3 +1,11 @@
 <resources>
-    <string name="app_name">Spendwise</string>
+    <string name = "app_name">Spendwise</string>
+    <string name = "date">Date</string>
+    <string name="transaction_type">Transaction_type</string>
+    <string name="category">Category</string>
+    <string name="amount">Amount</string>
+    <string name="note">Note</string>
+    <string name="picture">Picture</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
 </resources>
