@@ -51,8 +51,12 @@ public class MainActivity extends AppCompatActivity {
                 } else if (view == findViewById(R.id.analyze)) {
 
                 } else {
-//                    fragment = new FragmentOverview();
-                    Log.d("NoMessage", "no messsage");
+                    fragment = new FragmentOverview();
+                    if(bundle != null){
+                        bundle.putStringArrayList("array", arraylist);
+                    }
+                    fragment.setArguments(bundle);
+
                 }
                 FragmentManager manager = getSupportFragmentManager();
                 FragmentTransaction transaction = manager.beginTransaction();
