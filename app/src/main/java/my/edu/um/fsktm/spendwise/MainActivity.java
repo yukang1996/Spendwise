@@ -50,7 +50,8 @@ public class MainActivity extends AppCompatActivity {
 
                 } else if (view == findViewById(R.id.analyze)) {
 
-                } else {
+
+                } else if (view == findViewById(R.id.overview)){
                     fragment = new FragmentOverview();
                     if(bundle != null){
                         bundle.putStringArrayList("array", arraylist);
@@ -69,6 +70,8 @@ public class MainActivity extends AppCompatActivity {
         budget.setOnClickListener(listener);
         Button transac = (Button) findViewById(R.id.transaction);
         transac.setOnClickListener(listener);
+        Button overview = findViewById(R.id.overview);
+        overview.setOnClickListener(listener);
         FloatingActionButton fabAdd = (FloatingActionButton) findViewById(R.id.fabAdd);
         fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override

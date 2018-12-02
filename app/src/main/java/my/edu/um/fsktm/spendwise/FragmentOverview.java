@@ -80,6 +80,7 @@ public class FragmentOverview extends Fragment implements AdapterView.OnItemClic
             temp_percentage[j] = (String) m.getValue();
             j++;
         }
+        Log.d("Info", temp_percentage[0]);
 
 
 
