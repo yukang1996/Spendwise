@@ -40,7 +40,7 @@ public class AddBudget extends AppCompatActivity {
             return;
         }
 
-        clothes = editTextSalary.getText().toString();
+        clothes = editTextClothes.getText().toString();
 
         if(clothes.isEmpty()){
             editTextClothes.setError("Please enter Clothes");

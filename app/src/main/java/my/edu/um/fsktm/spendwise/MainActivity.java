@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
                 } else if (view == findViewById(R.id.budget)) {
                     fragment = new FragmentBudget();
                     if(bundle != null){
+                        bundle.putStringArrayList("budget", budgetlist);
                         bundle.putStringArrayList("array", arraylist);
                     }
                     fragment.setArguments(bundle);

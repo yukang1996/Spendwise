@@ -19,16 +19,17 @@ public class BudgetRecordAdapter extends ArrayAdapter<String> {
     private final Activity context;
     private final String[] category;
     private final Integer[] imgid;
-    private final int [] percentage;
-    private final int [] test = {50,30,60,70,60};
+    private final int [] use_percentage;
+    private final int [] plan_percentage;
 
 
-    public BudgetRecordAdapter(Activity context, String[] category, Integer[] imgid, int[] percentage) {
+    public BudgetRecordAdapter(Activity context, String[] category, Integer[] imgid, int[] use_percentage, int[] plan_percentage) {
         super(context, R.layout.list_fragment_budget, category);
         this.context = context;
         this.category = category;
         this.imgid = imgid;
-        this.percentage = percentage;
+        this.use_percentage = use_percentage;
+        this.plan_percentage = plan_percentage;
     }
 
     public View getView(int position, View view, ViewGroup parent) {
@@ -44,8 +45,8 @@ public class BudgetRecordAdapter extends ArrayAdapter<String> {
         txtTitle.setText(category[position]);
         imageView.setImageResource(imgid[position]);
 //        extratxt.setText("Description "+category[position]);
-        progressBar.setProgress(percentage[position]);
-        progressBar.setSecondaryProgress(test[position]);
+        progressBar.setProgress(use_percentage[position]);
+        progressBar.setSecondaryProgress(plan_percentage[position]);
 
         //set progress pivot....
 //        if(category[position].equalsIgnoreCase("clothes")){

@@ -8,7 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -18,6 +20,7 @@ import java.util.Map;
 
 public class FragmentBudget extends Fragment implements AdapterView.OnItemClickListener {
     ArrayList al;
+    ArrayList budgetlist;
     ListView list;
     String date[];
     String transaction_type[];
@@ -25,7 +28,10 @@ public class FragmentBudget extends Fragment implements AdapterView.OnItemClickL
     String amount[];
     String notes[];
     String picture[];
-    final double salary = 3000.00;
+    int [] plan_percentage;
+    EditText editSalary;
+    double salary;
+
     HashMap<String, String> map = new HashMap<>();
 
 
@@ -42,13 +48,25 @@ public class FragmentBudget extends Fragment implements AdapterView.OnItemClickL
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+
+
         if(getArguments() != null){
             al = getArguments().getStringArrayList("array");
+            budgetlist = getArguments().getStringArrayList("budget");
+
         }
         else{
             al = new ArrayList();
         }
-        return inflater.inflate(R.layout.fragment_budget, container, false);
+        Log.d("Check", String.valueOf(budgetlist));
+        processBudgetList();
+        View v = inflater.inflate(R.layout.fragment_budget, container, false);
+        editSalary = (EditText) v.findViewById(R.id.tv_salary);
+        editSalary.setText(String.format("RM %.2f",this.salary));
+        return v;
+
+
+
     }
 
     @Override
@@ -83,7 +101,7 @@ public class FragmentBudget extends Fragment implements AdapterView.OnItemClickL
 
         }
         String final_category[] = new String[map.size()];
-        int percentage[] = new int[map.size()];
+        int use_percentage[] = new int[map.size()];
         String temp_percentage[] = new String[map.size()];
         int j = 0;
         for(Map.Entry m: map.entrySet()){
@@ -93,16 +111,13 @@ public class FragmentBudget extends Fragment implements AdapterView.OnItemClickL
             j++;
         }
         for(int i = 0; i < final_category.length; i++){
-            Log.d("Final: ", final_category[i] + " and "+ percentage[i]);
+            Log.d("Final: ", final_category[i] + " and "+ use_percentage[i]);
             double temp = Double.parseDouble(temp_percentage[i]);
             temp = (temp / salary) * 100;
-            percentage[i] = (int) temp;
+            use_percentage[i] = (int) temp;
         }
 
-
-
-
-        BudgetRecordAdapter adapter = new BudgetRecordAdapter(getActivity(), final_category, imgid, percentage);
+        BudgetRecordAdapter adapter = new BudgetRecordAdapter(getActivity(), final_category, imgid, use_percentage, plan_percentage);
         list = (ListView) getActivity().findViewById(R.id.list);
         list.setAdapter(adapter);
 
@@ -115,5 +130,16 @@ public class FragmentBudget extends Fragment implements AdapterView.OnItemClickL
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         String selectedItem = amount[+position];
         Toast.makeText(getActivity(), selectedItem, Toast.LENGTH_SHORT).show();
+    }
+
+    public void processBudgetList(){
+        plan_percentage = new int[budgetlist.size()-1];
+        String temp = budgetlist.get(0).toString();
+        this.salary = Double.parseDouble(temp);
+        Log.d("Salary", String.valueOf(this.salary));
+        for(int i = 0; i < budgetlist.size()-1 ; i++){
+            plan_percentage[i] = Integer.parseInt(budgetlist.get(i+1).toString()) ;
+            Log.d("Plan", String.valueOf(plan_percentage[i]));
+        }
     }
 }
