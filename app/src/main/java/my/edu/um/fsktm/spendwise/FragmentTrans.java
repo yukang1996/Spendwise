@@ -60,7 +60,9 @@ public class FragmentTrans extends Fragment implements AdapterView.OnItemClickLi
         this.amount = new String[al.size()];
         this.notes = new String[al.size()];
         this.picture = new String[al.size()];
+        Log.d("TL", String.valueOf(al.size()));
         for (int i = 0; i < al.size(); i++){
+            Log.d("TL2", al.get(i).toString());
             translist[i] = al.get(i).toString().split(",");
             date[i] = translist[i][0];
             transaction_type[i] = translist[i][1];

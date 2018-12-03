@@ -5,13 +5,18 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import javax.xml.validation.Validator;
 
-public class AddTransaction extends AppCompatActivity {
+public class AddTransaction extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+    private Spinner spinner_transactiontype, spinner_category;
     private Validator nonempty_validate;
     private EditText editTextDate, editTextTransaction_type, editTextCategory,
             editTextAmount, editTextNote, editTextPicture;
@@ -24,17 +29,28 @@ public class AddTransaction extends AppCompatActivity {
         Intent intent = getIntent();
         this.arrayList = intent.getStringArrayListExtra("array");
 
+        spinner_transactiontype = findViewById(R.id.sp_transaction_type);
+        String[] type_of_transaction = {"Income", "Expense"};
+        ArrayAdapter<String> adapterTransactionType = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, type_of_transaction);
+        spinner_transactiontype.setAdapter(adapterTransactionType);
+        spinner_category = findViewById(R.id.sp_category);
+        String[] type_of_category = {"Clothes", "Food", "Transport", "Entertainment", "Others"};
+        ArrayAdapter<String> adapterCategory = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, type_of_category);
+        spinner_category.setAdapter(adapterCategory);
     }
 
     public void saveRecord(View v){
         editTextDate = (EditText) findViewById(R.id.editTextDate);
-        editTextTransaction_type = (EditText) findViewById(R.id.editTextTransaction_type);
-        editTextCategory = (EditText) findViewById(R.id.editTextCategory);
+//        editTextTransaction_type = (EditText) findViewById(R.id.editTextTransaction_type);
+        String spValue_transaction_type = spinner_transactiontype.getSelectedItem().toString();
+        String spValue_category = spinner_category.getSelectedItem().toString();
+        Log.d("SMessage", spValue_transaction_type+" , "+spValue_category);
+//        editTextCategory = (EditText) findViewById(R.id.editTextCategory);
         editTextAmount = (EditText) findViewById(R.id.editTextAmount);
         editTextNote = (EditText) findViewById(R.id.editTextNote);
         editTextPicture = (EditText) findViewById(R.id.editTextPicture);
 
-        String date, transaction_type, category, amount, note, picture;
+        String date, amount, note, picture;
 
         date = editTextDate.getText().toString();
 
@@ -43,19 +59,19 @@ public class AddTransaction extends AppCompatActivity {
             return;
         }
 
-        transaction_type = editTextTransaction_type.getText().toString();
-
-        if(transaction_type.isEmpty()){
-            editTextTransaction_type.setError("Please enter transaction type");
-            return;
-        }
-
-        category = editTextCategory.getText().toString();
-
-        if(category.isEmpty()){
-            editTextCategory.setError("Please enter category");
-            return;
-        }
+//        transaction_type = editTextTransaction_type.getText().toString();
+//
+//        if(transaction_type.isEmpty()){
+//            editTextTransaction_type.setError("Please enter transaction type");
+//            return;
+//        }
+//
+//        category = editTextCategory.getText().toString();
+//
+//        if(category.isEmpty()){
+//            editTextCategory.setError("Please enter category");
+//            return;
+//        }
 
         amount = editTextAmount.getText().toString();
 
@@ -67,7 +83,9 @@ public class AddTransaction extends AppCompatActivity {
         note = editTextNote.getText().toString();
 
         picture = editTextPicture.getText().toString();
-        String line = date + "," + transaction_type + "," + category + "," + amount + "," + note + "," + picture;
+
+        String line = date + "," + spValue_transaction_type + "," + spValue_category + "," + amount + "," + note + "," + picture;
+        Log.d("LINE", line);
         arrayList.add(line);
         Intent intent = new Intent();
         intent.putExtra("array", arrayList);
@@ -76,4 +94,22 @@ public class AddTransaction extends AppCompatActivity {
 
     }
 
+    public void Cancel(View v){
+        Intent intent = new Intent();
+        intent.putExtra("array", arrayList);
+        setResult(RESULT_OK, intent);
+        this.finish();
+    }
+
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        String item = parent.getItemAtPosition(position).toString();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+        ((TextView)parent.getSelectedView()).setError("None Selected");
+        return;
+    }
 }

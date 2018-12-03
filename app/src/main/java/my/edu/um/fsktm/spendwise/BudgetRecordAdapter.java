@@ -20,8 +20,7 @@ public class BudgetRecordAdapter extends ArrayAdapter<String> {
     private final String[] category;
     private final Integer[] imgid;
     private final int [] percentage;
-    private final String pivot_clothes = "50%";
-    private final String pivot_food = "40%";
+    private final int [] test = {50,30,60,70,60};
 
 
     public BudgetRecordAdapter(Activity context, String[] category, Integer[] imgid, int[] percentage) {
@@ -46,6 +45,7 @@ public class BudgetRecordAdapter extends ArrayAdapter<String> {
         imageView.setImageResource(imgid[position]);
 //        extratxt.setText("Description "+category[position]);
         progressBar.setProgress(percentage[position]);
+        progressBar.setSecondaryProgress(test[position]);
 
         //set progress pivot....
 //        if(category[position].equalsIgnoreCase("clothes")){

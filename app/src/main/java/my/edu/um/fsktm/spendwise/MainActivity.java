@@ -26,15 +26,21 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         DatabaseFunction databaseFunction = new DatabaseFunction();
         this.arraylist = databaseFunction.readTransFromFile("transaction.txt", this);
+        if(this.arraylist == null){
+            Log.d("TransactionMessage", "Create new");
+            this.arraylist = new ArrayList<>();
+        }
         this.budgetlist = databaseFunction.readBudgFromFile("budget.txt", this);
         if(this.budgetlist == null){
-            Log.d("Message", "FIrst time user");
+            Log.d("BudgetMessage", "FIrst time user");
             Intent intent = new Intent(getApplicationContext(), AddBudget.class);
             intent.putExtra("salary", budgetlist);
             startActivityForResult(intent, 2);
 
         }
-        checkArrayList();
+        else{
+            Log.d("BudgetMessage", String.valueOf(budgetlist));
+        }
         Toolbar myToolbar = (Toolbar) findViewById(R.id.TB);
         myToolbar.setTitle("October");
 
@@ -157,12 +163,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        public void checkArrayList(){
-            if(this.arraylist == null){
-                this.arraylist = new ArrayList<>();
-            }
 
-        }
 
 
 

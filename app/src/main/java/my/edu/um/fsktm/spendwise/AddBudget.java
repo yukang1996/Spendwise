@@ -76,7 +76,15 @@ public class AddBudget extends AppCompatActivity {
         }
 
         String line = salary + "," + clothes + "," + food + "," + transport + "," + entertainment + "," + others;
+        al.clear();
         al.add(line);
+        Intent intent = new Intent();
+        intent.putExtra("salary", al);
+        setResult(RESULT_OK, intent);
+        this.finish();
+    }
+
+    public void Cancel(View v){
         Intent intent = new Intent();
         intent.putExtra("salary", al);
         setResult(RESULT_OK, intent);

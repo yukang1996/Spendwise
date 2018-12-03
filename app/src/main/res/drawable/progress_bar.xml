@@ -9,6 +9,18 @@
                 android:startColor="#ffffff" />
         </shape>
     </item>
+
+    <item android:id="@android:id/secondaryProgress">
+        <clip>
+            <shape>
+                <corners android:radius="5dip"></corners>
+                <gradient
+                    android:angle="0"
+                    android:endColor="#00ffff"
+                    android:startColor="#00ffff"></gradient>
+            </shape>
+        </clip>
+    </item>
     <item android:id="@android:id/progress">
         <clip>
             <shape>
@@ -20,11 +32,5 @@
             </shape>
         </clip>
     </item>
-    <item android:id="@+id/line" >
-        <rotate android:fromDegrees="90" android:pivotX="50%" >
-            <shape android:shape="line" >
-                <stroke android:width="2dp" android:color="#000000" />
-            </shape>
-        </rotate>
-    </item>
+
 </layer-list>
