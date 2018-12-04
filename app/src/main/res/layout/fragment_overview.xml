@@ -10,30 +10,30 @@
 
     <TextView
         android:id="@+id/tv_income"
-        android:layout_width="192dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="3dp"
-        android:layout_marginLeft="3dp"
-        android:gravity="left"
+        android:layout_width="0dp"
+        android:layout_height="82dp"
+        android:gravity="center"
         android:paddingLeft="20dp"
         android:text="Income"
         android:textColor="@color/colorWhite"
         android:textSize="30dp"
-        app:layout_constraintBottom_toTopOf="@+id/tv_expense"
-        app:layout_constraintStart_toStartOf="@+id/tv_expense"
-        app:layout_constraintTop_toTopOf="@+id/tv_setIncome" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/tv_setIncome"
+        app:layout_constraintEnd_toStartOf="@+id/tv_setBalance"
+        app:layout_constraintStart_toStartOf="@+id/tv_balance" />
 
     <TextView
         android:id="@+id/tv_expense"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:gravity="left"
+        android:layout_marginEnd="3dp"
+        android:layout_marginRight="3dp"
+        android:gravity="center"
         android:paddingLeft="20dp"
         android:text="Expense"
         android:textColor="@color/colorWhite"
         android:textSize="30dp"
         app:layout_constraintBottom_toTopOf="@+id/list"
-        app:layout_constraintEnd_toEndOf="@+id/tv_balance"
+        app:layout_constraintEnd_toEndOf="@+id/tv_income"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_setIncome" />
 
@@ -46,7 +46,10 @@
         android:layout_marginTop="3dp"
         android:layout_marginEnd="3dp"
         android:layout_marginRight="3dp"
+        android:gravity="center"
         android:text="TextView"
+        android:textColor="@color/colorWhite"
+        android:textSize="30dp"
         app:layout_constraintBottom_toTopOf="@+id/tv_expense"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/tv_setExpense"
@@ -59,10 +62,13 @@
         android:layout_marginTop="86dp"
         android:layout_marginEnd="4dp"
         android:layout_marginRight="4dp"
-        android:layout_marginBottom="260dp"
+        android:layout_marginBottom="207dp"
+        android:gravity="center"
         android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/tv_balance"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@color/colorWhite"
+        android:textSize="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_setBalance"
+        app:layout_constraintEnd_toEndOf="@+id/list"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ListView
@@ -72,7 +78,6 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="167dp"
-        android:layout_marginBottom="2dp"
         app:layout_constraintBottom_toTopOf="@+id/tv_setBalance"
         app:layout_constraintEnd_toEndOf="@+id/tv_expense"
         app:layout_constraintStart_toEndOf="@+id/tv_expense"
@@ -82,9 +87,12 @@
         android:id="@+id/tv_balance"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="2dp"
-        android:layout_marginLeft="2dp"
-        android:gravity="left"
+        android:layout_marginStart="3dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginRight="2dp"
+        android:layout_marginBottom="59dp"
+        android:gravity="center"
         android:paddingLeft="20dp"
         android:text="Balance"
         android:textColor="@color/colorWhite"
@@ -92,21 +100,22 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/tv_setBalance"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_setExpense" />
+        app:layout_constraintTop_toBottomOf="@+id/list" />
 
     <TextView
         android:id="@+id/tv_setBalance"
         android:layout_width="0dp"
-        android:layout_height="77dp"
-        android:layout_marginEnd="2dp"
-        android:layout_marginRight="2dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="58dp"
+        android:gravity="center"
         android:paddingLeft="30dp"
         android:text="TextView"
+        android:textColor="@color/colorWhite"
         android:textSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tv_balance"
-        app:layout_constraintTop_toBottomOf="@+id/list" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_setExpense" />
 
 
 </android.support.constraint.ConstraintLayout>

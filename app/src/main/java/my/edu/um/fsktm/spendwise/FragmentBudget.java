@@ -29,18 +29,14 @@ public class FragmentBudget extends Fragment implements AdapterView.OnItemClickL
     String notes[];
     String picture[];
     int [] plan_percentage;
-    EditText editSalary;
+    TextView editSalary;
     double salary;
+    Integer[] imgid;
 
     HashMap<String, String> map = new HashMap<>();
 
 
-    Integer[] imgid = {
-            R.drawable.ic_launcher_background,
-            R.drawable.ic_launcher_background,
-            R.drawable.ic_launcher_background,
-            R.drawable.ic_launcher_background,
-    };
+
 
     public FragmentBudget(){
 
@@ -61,8 +57,8 @@ public class FragmentBudget extends Fragment implements AdapterView.OnItemClickL
         Log.d("Check", String.valueOf(budgetlist));
         processBudgetList();
         View v = inflater.inflate(R.layout.fragment_budget, container, false);
-        editSalary = (EditText) v.findViewById(R.id.tv_salary);
-        editSalary.setText(String.format("RM %.2f",this.salary));
+        editSalary = (TextView) v.findViewById(R.id.tv_salary);
+        editSalary.setText(String.format("Salary: RM %.2f",this.salary));
         return v;
 
 
@@ -115,6 +111,28 @@ public class FragmentBudget extends Fragment implements AdapterView.OnItemClickL
             double temp = Double.parseDouble(temp_percentage[i]);
             temp = (temp / salary) * 100;
             use_percentage[i] = (int) temp;
+        }
+
+        imgid = new Integer[final_category.length];
+        for(int i = 0;i < final_category.length; i++){
+            if(final_category[i].equalsIgnoreCase("Clothes")){
+                imgid[i] = R.drawable.clothes;
+            }
+            else if(final_category[i].equalsIgnoreCase("Food")){
+                imgid[i] = R.drawable.food;
+            }
+            else if(final_category[i].equalsIgnoreCase("Transport")){
+                imgid[i] = R.drawable.transport;
+            }
+            else if(final_category[i].equalsIgnoreCase("Entertainment")){
+                imgid[i] = R.drawable.entertainment;
+            }
+            else if(final_category[i].equalsIgnoreCase("Others")){
+                imgid[i] = R.drawable.others;
+            }
+            else{
+                imgid[i] = R.drawable.ic_launcher_background;
+            }
         }
 
         BudgetRecordAdapter adapter = new BudgetRecordAdapter(getActivity(), final_category, imgid, use_percentage, plan_percentage);

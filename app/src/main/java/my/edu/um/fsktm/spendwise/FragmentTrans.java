@@ -22,15 +22,9 @@ public class FragmentTrans extends Fragment implements AdapterView.OnItemClickLi
     String amount[];
     String notes[];
     String picture[];
+    Integer[] imgid;
 
 
-
-    Integer[] imgid = {
-            R.drawable.ic_launcher_background,
-            R.drawable.ic_launcher_background,
-            R.drawable.ic_launcher_background,
-            R.drawable.ic_launcher_background,
-    };
 
     public FragmentTrans(){
 
@@ -71,10 +65,32 @@ public class FragmentTrans extends Fragment implements AdapterView.OnItemClickLi
             notes[i] = translist[i][4];
             picture[i] = translist[i][5];
         }
+        imgid = new Integer[category.length];
+        for(int i = 0;i < category.length; i++){
+            if(category[i].equalsIgnoreCase("Clothes")){
+                imgid[i] = R.drawable.clothes;
+            }
+            else if(category[i].equalsIgnoreCase("Food")){
+                imgid[i] = R.drawable.food;
+            }
+            else if(category[i].equalsIgnoreCase("Transport")){
+                imgid[i] = R.drawable.transport;
+            }
+            else if(category[i].equalsIgnoreCase("Entertainment")){
+                imgid[i] = R.drawable.entertainment;
+            }
+            else if(category[i].equalsIgnoreCase("Others")){
+                imgid[i] = R.drawable.others;
+            }
+            else{
+                imgid[i] = R.drawable.ic_launcher_background;
+            }
+        }
 
         TransactionRecordAdapter adapter = new TransactionRecordAdapter(getActivity(), amount, imgid, transaction_type, date);
         list = (ListView) getActivity().findViewById(R.id.list);
         list.setAdapter(adapter);
+        list.setItemsCanFocus(true);
 
 
 
@@ -83,14 +99,8 @@ public class FragmentTrans extends Fragment implements AdapterView.OnItemClickLi
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        String selectedItem = amount[+position];
+        String selectedItem = String.valueOf(position);
+        Log.d("Selecting", selectedItem);
         Toast.makeText(getActivity(), selectedItem, Toast.LENGTH_SHORT).show();
     }
-
-
-
-
-
-
-
 }

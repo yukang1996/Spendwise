@@ -1,12 +1,11 @@
 package my.edu.um.fsktm.spendwise;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 public class OverviewRecordAdapter extends ArrayAdapter<String> {
@@ -24,6 +23,7 @@ public class OverviewRecordAdapter extends ArrayAdapter<String> {
     }
 
     public View getView(int position, View view, ViewGroup parent) {
+        Log.d("Over", "here?");
         LayoutInflater inflater=context.getLayoutInflater();
         View rowView=inflater.inflate(R.layout.list_fragment_overview, null,true);
 
@@ -31,8 +31,6 @@ public class OverviewRecordAdapter extends ArrayAdapter<String> {
         TextView txtAmount = rowView.findViewById(R.id.textView2);
 
 //        TextView extratxt = (TextView) rowView.findViewById(R.id.textView1);
-
-
         txtTitle.setText(category[position]);
         txtAmount.setText("RM" + amount[position]);
 //        extratxt.setText("Description "+category[position]);
@@ -47,5 +45,5 @@ public class OverviewRecordAdapter extends ArrayAdapter<String> {
 //        }
         return rowView;
 
-    };
+    }
 }

@@ -71,21 +71,19 @@ public class FragmentOverview extends Fragment implements AdapterView.OnItemClic
 
         }
         String final_category[] = new String[map.size()];
-        int percentage[] = new int[map.size()];
-        String temp_percentage[] = new String[map.size()];
+        String temp_amount[] = new String[map.size()];
         int j = 0;
         for(Map.Entry m: map.entrySet()){
             Log.d("HashMap",m.getKey()+" "+m.getValue());
             final_category[j] = (String) m.getKey();
-            temp_percentage[j] = (String) m.getValue();
+            temp_amount[j] = (String) m.getValue();
             j++;
         }
-        Log.d("Info", temp_percentage[0]);
 
 
 
 
-        OverviewRecordAdapter adapter = new OverviewRecordAdapter(getActivity(), final_category, temp_percentage);
+        OverviewRecordAdapter adapter = new OverviewRecordAdapter(getActivity(), final_category, temp_amount);
         list = (ListView) getActivity().findViewById(R.id.list);
         list.setAdapter(adapter);
 
