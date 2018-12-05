@@ -108,6 +108,17 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("Message", "after that");
             }
         });
+        FloatingActionButton fabAddIncome = (FloatingActionButton) findViewById(R.id.fabAddIncome);
+        fabAddIncome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),
+                        AddTransactionIncome.class);
+                intent.putExtra("array", arraylist);
+                startActivityForResult(intent, 1);
+                Log.d("Message", "after that");
+            }
+        });
 
     }
         public void onActivityResult(int requestCode, int resultCode, Intent data){

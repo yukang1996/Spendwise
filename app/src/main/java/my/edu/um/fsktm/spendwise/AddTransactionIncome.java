@@ -15,13 +15,13 @@ import java.util.ArrayList;
 
 import javax.xml.validation.Validator;
 
-public class AddTransaction extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class AddTransactionIncome extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private TextView tv_transaction_type;
     private Spinner spinner_category;
     private Validator nonempty_validate;
     private EditText editTextDate,editTextAmount, editTextNote, editTextPicture;
     private ArrayList<String> arrayList;
-    private String transact_type = "Expenses";
+    private String transact_type = "Income";
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -32,7 +32,7 @@ public class AddTransaction extends AppCompatActivity implements AdapterView.OnI
         tv_transaction_type = findViewById(R.id.tv_transaction_type);
         tv_transaction_type.setText("Transaction Type: "+transact_type);
         spinner_category = findViewById(R.id.sp_category);
-        String[] type_of_category = {"Clothes", "Food", "Transport", "Entertainment", "Others"};
+        String[] type_of_category = {"Salary", "Others"};
         ArrayAdapter<String> adapterCategory = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, type_of_category);
         spinner_category.setAdapter(adapterCategory);
     }
