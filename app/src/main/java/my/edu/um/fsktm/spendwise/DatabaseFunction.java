@@ -69,6 +69,8 @@ public class DatabaseFunction {
         return al;
     }
 
+
+
     public ArrayList<String> readBudgFromFile(String filename, Context context){
         File path = context.getFilesDir();
         File file = new File(path, filename);
@@ -82,12 +84,14 @@ public class DatabaseFunction {
 
             String temp[] = line.split(",");
             for(int i = 0; i < temp.length; i++){
+                Log.d("Temp[i]", temp[i]);
                 al.add(temp[i]);
             }
 
         } catch (FileNotFoundException e) {
             Log.d("Error", "No file found.");
             e.printStackTrace();
+
             return null;
         } catch (IOException e) {
             Log.d("Error", "Error?");
@@ -98,6 +102,8 @@ public class DatabaseFunction {
 
         return al;
     }
+
+
 
 
 

@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import java.io.IOException;
 import java.util.HashMap;
 
 public class BudgetRecordAdapter extends ArrayAdapter<String> {
@@ -41,12 +42,18 @@ public class BudgetRecordAdapter extends ArrayAdapter<String> {
 //        TextView extratxt = (TextView) rowView.findViewById(R.id.textView1);
         ProgressBar progressBar = (ProgressBar) rowView.findViewById(R.id.progressbar);
 
-
-        txtTitle.setText(category[position]);
-        imageView.setImageResource(imgid[position]);
+        try{
+            txtTitle.setText(category[position]);
+            imageView.setImageResource(imgid[position]);
 //        extratxt.setText("Description "+category[position]);
-        progressBar.setProgress(use_percentage[position]);
-        progressBar.setSecondaryProgress(plan_percentage[position]);
+            progressBar.setProgress(use_percentage[position]);
+            progressBar.setSecondaryProgress(plan_percentage[position]);
+        }catch (Exception e){
+
+        }
+
+
+
 
         //set progress pivot....
 //        if(category[position].equalsIgnoreCase("clothes")){

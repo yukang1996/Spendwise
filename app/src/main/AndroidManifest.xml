@@ -19,6 +19,7 @@
         <activity android:name=".AddTransaction"></activity>
         <activity android:name=".AddTransactionIncome"></activity>
         <activity android:name=".AddBudget"></activity>
+        <activity android:name=".UpdateTransaction"></activity>
     </application>
 
 </manifest>

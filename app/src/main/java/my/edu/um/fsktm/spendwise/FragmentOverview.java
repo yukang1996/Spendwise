@@ -7,11 +7,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import static java.lang.String.*;
 
 public class FragmentOverview extends Fragment implements AdapterView.OnItemClickListener {
     ListView listViewRecords;
@@ -24,25 +28,54 @@ public class FragmentOverview extends Fragment implements AdapterView.OnItemClic
     String notes[];
     String picture[];
     HashMap<String, String> map = new HashMap<>();
+    Double income = 0.00, expenses = 0.00, balance = 0.00;
+    TextView et_income, et_expenses, et_balance;
 
     public FragmentOverview() {
 
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            if(getArguments() != null){
-                al = getArguments().getStringArrayList("array");
-            }
-            else {
-                al = new ArrayList();
-            }
-        return inflater.inflate(R.layout.fragment_overview, container, false);
+        if(getArguments() != null){
+            al = getArguments().getStringArrayList("array"); }
+        else {
+            al = new ArrayList();
+        }
+        View v = inflater.inflate(R.layout.fragment_overview, container, false);
+        processInformation();
+        calculateIncome();
+        calculateExpense();
+        calculateBalance();
+        et_income = v.findViewById(R.id.tv_setIncome);
+        et_income.setText(String.format("%.2f", income));
+        et_expenses = v.findViewById(R.id.tv_setExpense);
+        et_expenses.setText(String.format("%.2f", expenses));
+        et_balance = v.findViewById(R.id.tv_setBalance);
+        et_balance.setText(String.format("%.2f", balance));
+
+        return v;
     }
 
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
+    private void calculateIncome() {
+        for (int i = 0; i < al.size(); i++) {
+            if (transaction_type[i].equalsIgnoreCase("Income")) {
+                income = income + Double.parseDouble(amount[i]);
+            }
+        }
+    }
+    private void calculateExpense(){
+        for(int i = 0; i < al.size();i++){
+            if(transaction_type[i].equalsIgnoreCase("Expense")){
+                expenses = expenses + Double.parseDouble(amount[i]);
+            }
+        }
+    }
 
-        super.onActivityCreated(savedInstanceState);
+    private void calculateBalance(){
+        balance = income - expenses;
+    }
+
+    private void processInformation() {
         String[][] translist = new String[al.size()][];
         this.date = new String[al.size()];
         this.transaction_type = new String[al.size()];
@@ -59,14 +92,25 @@ public class FragmentOverview extends Fragment implements AdapterView.OnItemClic
             notes[i] = translist[i][4];
             picture[i] = translist[i][5];
         }
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+
+        super.onActivityCreated(savedInstanceState);
+
         for(int i = 0; i < category.length; i++){
-            if(map.containsKey(category[i])){
-                double value = Integer.parseInt(map.get(category[i]));
-                value += Double.parseDouble(amount[i]);
-                map.put(category[i], String.valueOf(value));
+            if(transaction_type[i].equalsIgnoreCase("Income")){
+
             }
-            else{
-                map.put(category[i], amount[i]);
+            else {
+                if (map.containsKey(category[i])) {
+                    double value = Integer.parseInt(map.get(category[i]));
+                    value += Double.parseDouble(amount[i]);
+                    map.put(category[i], valueOf(value));
+                } else {
+                    map.put(category[i], amount[i]);
+                }
             }
 
         }

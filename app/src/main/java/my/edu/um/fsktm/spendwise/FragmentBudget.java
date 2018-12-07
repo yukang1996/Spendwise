@@ -20,7 +20,7 @@ import java.util.Map;
 
 public class FragmentBudget extends Fragment implements AdapterView.OnItemClickListener {
     ArrayList al;
-    ArrayList budgetlist;
+    ArrayList<String> budgetlist;
     ListView list;
     String date[];
     String transaction_type[];
@@ -86,14 +86,20 @@ public class FragmentBudget extends Fragment implements AdapterView.OnItemClickL
             picture[i] = translist[i][5];
         }
         for(int i = 0; i < category.length; i++){
-            if(map.containsKey(category[i])){
-                double value = Integer.parseInt(map.get(category[i]));
-                value += Double.parseDouble(amount[i]);
-                map.put(category[i], String.valueOf(value));
+            if(transaction_type[i].equalsIgnoreCase("Income")){
+
             }
             else{
-                map.put(category[i], amount[i]);
+                if(map.containsKey(category[i])){
+                    double value = Integer.parseInt(map.get(category[i]));
+                    value += Double.parseDouble(amount[i]);
+                    map.put(category[i], String.valueOf(value));
+                }
+                else{
+                    map.put(category[i], amount[i]);
+                }
             }
+
 
         }
         String final_category[] = new String[map.size()];
@@ -137,6 +143,7 @@ public class FragmentBudget extends Fragment implements AdapterView.OnItemClickL
 
         BudgetRecordAdapter adapter = new BudgetRecordAdapter(getActivity(), final_category, imgid, use_percentage, plan_percentage);
         list = (ListView) getActivity().findViewById(R.id.list);
+        list.setOnItemClickListener(this);
         list.setAdapter(adapter);
 
 
@@ -147,12 +154,14 @@ public class FragmentBudget extends Fragment implements AdapterView.OnItemClickL
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         String selectedItem = amount[+position];
+        Log.d("Position", String.valueOf(position));
         Toast.makeText(getActivity(), selectedItem, Toast.LENGTH_SHORT).show();
     }
 
     public void processBudgetList(){
         plan_percentage = new int[budgetlist.size()-1];
         String temp = budgetlist.get(0).toString();
+        Log.d("Temp", temp);
         this.salary = Double.parseDouble(temp);
         Log.d("Salary", String.valueOf(this.salary));
         for(int i = 0; i < budgetlist.size()-1 ; i++){

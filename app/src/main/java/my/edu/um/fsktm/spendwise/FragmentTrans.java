@@ -1,7 +1,9 @@
 package my.edu.um.fsktm.spendwise;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +15,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.app.Activity.RESULT_OK;
+
 public class FragmentTrans extends Fragment implements AdapterView.OnItemClickListener {
     ArrayList al;
     ListView list;
@@ -23,6 +27,7 @@ public class FragmentTrans extends Fragment implements AdapterView.OnItemClickLi
     String notes[];
     String picture[];
     Integer[] imgid;
+    boolean allowRefresh = false;
 
 
 
@@ -67,7 +72,10 @@ public class FragmentTrans extends Fragment implements AdapterView.OnItemClickLi
         }
         imgid = new Integer[category.length];
         for(int i = 0;i < category.length; i++){
-            if(category[i].equalsIgnoreCase("Clothes")){
+            if(category[i].equalsIgnoreCase("Salary")){
+                imgid[i] = R.drawable.salary;
+            }
+            else if(category[i].equalsIgnoreCase("Clothes")){
                 imgid[i] = R.drawable.clothes;
             }
             else if(category[i].equalsIgnoreCase("Food")){
@@ -89,11 +97,12 @@ public class FragmentTrans extends Fragment implements AdapterView.OnItemClickLi
 
         TransactionRecordAdapter adapter = new TransactionRecordAdapter(getActivity(), amount, imgid, transaction_type, date);
         list = (ListView) getActivity().findViewById(R.id.list);
+        list.setOnItemClickListener(this);
         list.setAdapter(adapter);
         list.setItemsCanFocus(true);
 
 
-
+        Log.d("Return", "return here?");
     }
 
 
@@ -102,5 +111,30 @@ public class FragmentTrans extends Fragment implements AdapterView.OnItemClickLi
         String selectedItem = String.valueOf(position);
         Log.d("Selecting", selectedItem);
         Toast.makeText(getActivity(), selectedItem, Toast.LENGTH_SHORT).show();
+        String temp_pos = String.valueOf(position);
+        Intent intent = new Intent(getContext(), UpdateTransaction.class);
+        this.allowRefresh = true;
+        Log.d("Changed", String.valueOf(allowRefresh));
+        if(transaction_type[position].equalsIgnoreCase("Income")){
+            Log.d("INcome","incomeee");
+            intent.putExtra("array", al);
+            intent.putExtra("t_type","Income");
+            intent.putExtra("position", temp_pos);
+            getActivity().startActivityForResult(intent, 3);
+
+        }
+        else if(transaction_type[position].equalsIgnoreCase("Expense")){
+            Log.d("Expense","expenseeee");
+            intent.putExtra("array", al);
+            intent.putExtra("t_type","Expense");
+            intent.putExtra("position", temp_pos);
+            getActivity().startActivityForResult(intent, 3);
+        }
+
+
     }
+
+
+
+
 }

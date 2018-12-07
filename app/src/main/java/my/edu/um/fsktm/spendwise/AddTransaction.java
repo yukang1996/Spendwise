@@ -2,15 +2,18 @@ package my.edu.um.fsktm.spendwise;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.xml.validation.Validator;
@@ -18,10 +21,13 @@ import javax.xml.validation.Validator;
 public class AddTransaction extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private TextView tv_transaction_type;
     private Spinner spinner_category;
+    private CalendarView calender_view;
     private Validator nonempty_validate;
-    private EditText editTextDate,editTextAmount, editTextNote, editTextPicture;
+    private EditText editTextAmount, editTextNote, editTextPicture;
     private ArrayList<String> arrayList;
-    private String transact_type = "Expenses";
+    private String transact_type = "Expense";
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+    private String date = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -35,10 +41,21 @@ public class AddTransaction extends AppCompatActivity implements AdapterView.OnI
         String[] type_of_category = {"Clothes", "Food", "Transport", "Entertainment", "Others"};
         ArrayAdapter<String> adapterCategory = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, type_of_category);
         spinner_category.setAdapter(adapterCategory);
+        calender_view = new CalendarView(this);
+        calender_view = findViewById(R.id.calendarView);
+        calender_view.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+                date = dayOfMonth+"-"+ month+"-"+ year;
+                Log.d("Dateeee", date);
+            }
+        });
     }
 
     public void saveRecord(View v){
-        editTextDate = (EditText) findViewById(R.id.editTextDate);
+
+
+
 //        editTextTransaction_type = (EditText) findViewById(R.id.editTextTransaction_type);
         String spValue_category = spinner_category.getSelectedItem().toString();
 //        editTextCategory = (EditText) findViewById(R.id.editTextCategory);
@@ -46,14 +63,10 @@ public class AddTransaction extends AppCompatActivity implements AdapterView.OnI
         editTextNote = (EditText) findViewById(R.id.editTextNote);
         editTextPicture = (EditText) findViewById(R.id.editTextPicture);
 
-        String date, amount, note, picture;
+        String  amount, note, picture;
 
-        date = editTextDate.getText().toString();
 
-        if(date.isEmpty()){
-            editTextDate.setError("Please enter date");
-            return;
-        }
+
 
 //        transaction_type = editTextTransaction_type.getText().toString();
 //

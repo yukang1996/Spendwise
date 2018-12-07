@@ -17,8 +17,9 @@ import android.widget.Button;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    ArrayList<String> arraylist;
-    ArrayList<String> budgetlist;
+    public ArrayList<String> arraylist;
+    public ArrayList<String> budgetlist;
+    public boolean trigger = false;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -32,15 +33,18 @@ public class MainActivity extends AppCompatActivity {
         }
         this.budgetlist = databaseFunction.readBudgFromFile("budget.txt", this);
         if(this.budgetlist == null){
+            trigger = true;
             Log.d("BudgetMessage", "FIrst time user");
             Intent intent = new Intent(getApplicationContext(), AddBudget.class);
             intent.putExtra("salary", budgetlist);
             startActivityForResult(intent, 2);
-
         }
         else{
             Log.d("BudgetMessage", String.valueOf(budgetlist));
         }
+
+
+
         Toolbar myToolbar = (Toolbar) findViewById(R.id.TB);
         myToolbar.setTitle("October");
 
@@ -57,6 +61,17 @@ public class MainActivity extends AppCompatActivity {
                     }
                     fragment.setArguments(bundle);
                 } else if (view == findViewById(R.id.budget)) {
+                    if(trigger = true) {
+                        trigger = false;
+                        String line = budgetlist.get(0);
+
+                        String temp[] = line.split(",");
+                        budgetlist = new ArrayList<>();
+                        for (int i = 0; i < temp.length; i++) {
+                            Log.d("Temp[i]", temp[i]);
+                            budgetlist.add(temp[i]);
+                        }
+                    }
                     fragment = new FragmentBudget();
                     if(bundle != null){
                         bundle.putStringArrayList("budget", budgetlist);
@@ -65,6 +80,24 @@ public class MainActivity extends AppCompatActivity {
                     fragment.setArguments(bundle);
 
                 } else if (view == findViewById(R.id.analyze)) {
+                    if(trigger = true) {
+                        trigger = false;
+                        String line = budgetlist.get(0);
+
+                        String temp[] = line.split(",");
+                        budgetlist = new ArrayList<>();
+                        for (int i = 0; i < temp.length; i++) {
+                            Log.d("Temp[i]", temp[i]);
+                            budgetlist.add(temp[i]);
+                        }
+                    }
+                    fragment = new FragmentAnalysis();
+                    if(bundle != null){
+                        bundle.putStringArrayList("budget", budgetlist);
+                        bundle.putStringArrayList("array", arraylist);
+                    }
+                    fragment.setArguments(bundle);
+
 
 
                 } else if (view == findViewById(R.id.overview)){
@@ -122,6 +155,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
         public void onActivityResult(int requestCode, int resultCode, Intent data){
+        Log.d("Main","qer"+requestCode);
             if(requestCode == 1){
                 if(resultCode == RESULT_OK){
                     this.arraylist = data.getStringArrayListExtra("array");
@@ -134,6 +168,14 @@ public class MainActivity extends AppCompatActivity {
                     Log.d("Salary", this.budgetlist.toString());
                 }
             }
+            if(requestCode == 3){
+                Log.d("M3", "in ma?");
+                if(resultCode == RESULT_OK){
+                    this.arraylist = data.getStringArrayListExtra("newarray");
+                    Log.d("New array", arraylist.toString());
+                }
+            }
+
         }
 
 
@@ -174,6 +216,8 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }
+
+
 
 
 
