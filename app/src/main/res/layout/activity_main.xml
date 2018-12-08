@@ -17,7 +17,16 @@
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></android.support.v7.widget.Toolbar>
+        app:layout_constraintTop_toTopOf="parent">
+        <Spinner
+            android:id="@+id/tb_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:spinnerMode="dropdown"
+            >
+
+        </Spinner>
+    </android.support.v7.widget.Toolbar>
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/edit_toolbar"
@@ -110,6 +119,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/fabAdd"
         app:srcCompat="@drawable/baseline_add_black_18dp" />
+
 
     <FrameLayout
         android:id="@+id/FragOutput"

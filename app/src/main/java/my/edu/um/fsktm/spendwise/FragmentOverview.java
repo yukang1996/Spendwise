@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -43,8 +44,7 @@ public class FragmentOverview extends Fragment implements AdapterView.OnItemClic
         }
         View v = inflater.inflate(R.layout.fragment_overview, container, false);
         processInformation();
-        calculateIncome();
-        calculateExpense();
+        calculateIncomenExpense();
         calculateBalance();
         et_income = v.findViewById(R.id.tv_setIncome);
         et_income.setText(String.format("%.2f", income));
@@ -53,23 +53,43 @@ public class FragmentOverview extends Fragment implements AdapterView.OnItemClic
         et_balance = v.findViewById(R.id.tv_setBalance);
         et_balance.setText(String.format("%.2f", balance));
 
+        Spinner month_spinner = getActivity().findViewById(R.id.tb_spinner);
+        month_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Log.d("MonthSpinner", "Enter here "+position);
+                MainActivity.month_position = position + 1;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
         return v;
     }
 
-    private void calculateIncome() {
+
+
+
+
+    private void calculateIncomenExpense() {
         for (int i = 0; i < al.size(); i++) {
-            if (transaction_type[i].equalsIgnoreCase("Income")) {
-                income = income + Double.parseDouble(amount[i]);
+            String []line = date[i].split("-");
+            Log.d("Over Compare", line[1]+" vs " + MainActivity.month_position);
+            if(Integer.parseInt(line[1]) == MainActivity.month_position){
+                if (transaction_type[i].equalsIgnoreCase("Income")) {
+                    income = income + Double.parseDouble(amount[i]);
+                }
+                else{
+                    expenses = expenses + Double.parseDouble(amount[i]);
+                }
             }
+
         }
     }
-    private void calculateExpense(){
-        for(int i = 0; i < al.size();i++){
-            if(transaction_type[i].equalsIgnoreCase("Expense")){
-                expenses = expenses + Double.parseDouble(amount[i]);
-            }
-        }
-    }
+
 
     private void calculateBalance(){
         balance = income - expenses;
@@ -104,13 +124,18 @@ public class FragmentOverview extends Fragment implements AdapterView.OnItemClic
 
             }
             else {
-                if (map.containsKey(category[i])) {
-                    double value = Integer.parseInt(map.get(category[i]));
-                    value += Double.parseDouble(amount[i]);
-                    map.put(category[i], valueOf(value));
-                } else {
-                    map.put(category[i], amount[i]);
+                String[] line = date[i].split("-");
+                Log.d("Over2 compare", line[1] + " vs " + MainActivity.month_position);
+                if (Integer.parseInt(line[1]) == MainActivity.month_position) {
+                    if (map.containsKey(category[i])) {
+                        double value = Integer.parseInt(map.get(category[i]));
+                        value += Double.parseDouble(amount[i]);
+                        map.put(category[i], valueOf(value));
+                    } else {
+                        map.put(category[i], amount[i]);
+                    }
                 }
+
             }
 
         }

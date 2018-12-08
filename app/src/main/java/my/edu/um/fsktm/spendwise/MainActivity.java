@@ -12,14 +12,23 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.Month;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
     public ArrayList<String> arraylist;
     public ArrayList<String> budgetlist;
     public boolean trigger = false;
+    public String month;
+    public static int month_position;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -42,11 +51,30 @@ public class MainActivity extends AppCompatActivity {
         else{
             Log.d("BudgetMessage", String.valueOf(budgetlist));
         }
-
+        DateFormat dateFormat = new SimpleDateFormat("MM");
+        Date date = new Date();
+        int pos_month = Integer.parseInt(dateFormat.format(date));
 
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.TB);
-        myToolbar.setTitle("October");
+        Spinner MonthSpinner = findViewById(R.id.tb_spinner);
+        String[] type_of_months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+        ArrayAdapter<String> adapterMonth = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, type_of_months);
+        MonthSpinner.setAdapter(adapterMonth);
+        MonthSpinner.setSelection(pos_month-1);
+        MonthSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Log.d("MonthSpinner", "Main:Enter here "+position);
+                MainActivity.month_position = position + 1;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
 
         View.OnClickListener listener = new View.OnClickListener() {
 
@@ -61,7 +89,8 @@ public class MainActivity extends AppCompatActivity {
                     }
                     fragment.setArguments(bundle);
                 } else if (view == findViewById(R.id.budget)) {
-                    if(trigger = true) {
+                    if(trigger == true) {
+                        Log.d("Trigger", String.valueOf(trigger));
                         trigger = false;
                         String line = budgetlist.get(0);
 
@@ -72,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
                             budgetlist.add(temp[i]);
                         }
                     }
+                    Log.d("Here", String.valueOf(budgetlist));
                     fragment = new FragmentBudget();
                     if(bundle != null){
                         bundle.putStringArrayList("budget", budgetlist);
@@ -152,6 +182,9 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("Message", "after that");
             }
         });
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.FragOutput, new FragmentIntro());
+        transaction.commit();
 
     }
         public void onActivityResult(int requestCode, int resultCode, Intent data){
@@ -175,6 +208,7 @@ public class MainActivity extends AppCompatActivity {
                     Log.d("New array", arraylist.toString());
                 }
             }
+
 
         }
 

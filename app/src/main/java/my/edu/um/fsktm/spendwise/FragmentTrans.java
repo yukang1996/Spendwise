@@ -4,12 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -28,6 +30,12 @@ public class FragmentTrans extends Fragment implements AdapterView.OnItemClickLi
     String picture[];
     Integer[] imgid;
     boolean allowRefresh = false;
+    String new_amount[];
+    String new_transaction_type[];
+    Integer new_img_id[];
+    String new_date[];
+
+
 
 
 
@@ -44,6 +52,21 @@ public class FragmentTrans extends Fragment implements AdapterView.OnItemClickLi
             al = new ArrayList();
         }
         Log.d("Array", al.toString());
+
+        Spinner month_spinner = getActivity().findViewById(R.id.tb_spinner);
+        month_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Log.d("MonthSpinner", "Enter here "+position);
+                MainActivity.month_position = position + 1;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
         return inflater.inflate(R.layout.fragment_transaction, container, false);
     }
 
@@ -70,6 +93,17 @@ public class FragmentTrans extends Fragment implements AdapterView.OnItemClickLi
             notes[i] = translist[i][4];
             picture[i] = translist[i][5];
         }
+        ArrayList<Integer> temp_pos = new ArrayList<>();
+        for (int i = 0; i < date.length; i++){
+            String[] line = date[i].split("-");
+            Log.d("Compare", line[1]+" vs " + MainActivity.month_position);
+            if(Integer.parseInt(line[1]) == MainActivity.month_position){
+                temp_pos.add(i);
+            }
+
+        }
+        Log.d("FFFF", temp_pos.toString());
+
         imgid = new Integer[category.length];
         for(int i = 0;i < category.length; i++){
             if(category[i].equalsIgnoreCase("Salary")){
@@ -94,8 +128,22 @@ public class FragmentTrans extends Fragment implements AdapterView.OnItemClickLi
                 imgid[i] = R.drawable.ic_launcher_background;
             }
         }
+        new_amount = new String[temp_pos.size()];
+        new_date = new String[temp_pos.size()];
+        new_img_id = new Integer[temp_pos.size()];
+        new_transaction_type = new String[temp_pos.size()];
+        for (int i = 0; i < temp_pos.size(); i++){
+            new_amount[i] = amount[temp_pos.get(i)];
+            new_date[i] = date[temp_pos.get(i)];
+            new_img_id[i] = imgid[temp_pos.get(i)];
+            new_transaction_type[i] = transaction_type[temp_pos.get(i)];
 
-        TransactionRecordAdapter adapter = new TransactionRecordAdapter(getActivity(), amount, imgid, transaction_type, date);
+        }
+
+
+
+
+        TransactionRecordAdapter adapter = new TransactionRecordAdapter(getActivity(), new_amount, new_img_id, new_transaction_type, new_date);
         list = (ListView) getActivity().findViewById(R.id.list);
         list.setOnItemClickListener(this);
         list.setAdapter(adapter);

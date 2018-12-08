@@ -1,6 +1,9 @@
 package my.edu.um.fsktm.spendwise;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.hardware.Camera;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -8,26 +11,34 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.xml.validation.Validator;
+
+import static android.provider.MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE;
 
 public class AddTransactionIncome extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private TextView tv_transaction_type;
     private Spinner spinner_category;
     private CalendarView calender_view;
     private Validator nonempty_validate;
-    private EditText editTextDate,editTextAmount, editTextNote, editTextPicture;
+    private EditText editTextAmount, editTextNote, editTextPicture;
     private ArrayList<String> arrayList;
     private String transact_type = "Income";
     private SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
     private String date = "";
+
 
 
     @Override
@@ -51,10 +62,12 @@ public class AddTransactionIncome extends AppCompatActivity implements AdapterVi
                 Log.d("Dateeee", date);
             }
         });
+
     }
 
     public void saveRecord(View v){
 //        editTextTransaction_type = (EditText) findViewById(R.id.editTextTransaction_type);
+
         String spValue_category = spinner_category.getSelectedItem().toString();
 //        editTextCategory = (EditText) findViewById(R.id.editTextCategory);
         editTextAmount = (EditText) findViewById(R.id.editTextAmount);
@@ -118,4 +131,11 @@ public class AddTransactionIncome extends AppCompatActivity implements AdapterVi
         ((TextView)parent.getSelectedView()).setError("None Selected");
         return;
     }
+
+
+
+
+
+
+
 }

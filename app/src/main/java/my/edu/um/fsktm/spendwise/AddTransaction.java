@@ -46,6 +46,7 @@ public class AddTransaction extends AppCompatActivity implements AdapterView.OnI
         calender_view.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+                month += 1;
                 date = dayOfMonth+"-"+ month+"-"+ year;
                 Log.d("Dateeee", date);
             }

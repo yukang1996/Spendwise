@@ -10,12 +10,12 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class FragmentBudget extends Fragment implements AdapterView.OnItemClickListener {
@@ -32,6 +32,10 @@ public class FragmentBudget extends Fragment implements AdapterView.OnItemClickL
     TextView editSalary;
     double salary;
     Integer[] imgid;
+    String new_amount[];
+    String new_transaction_type[];
+    Integer new_img_id[];
+    String new_date[];
 
     HashMap<String, String> map = new HashMap<>();
 
@@ -59,6 +63,19 @@ public class FragmentBudget extends Fragment implements AdapterView.OnItemClickL
         View v = inflater.inflate(R.layout.fragment_budget, container, false);
         editSalary = (TextView) v.findViewById(R.id.tv_salary);
         editSalary.setText(String.format("Salary: RM %.2f",this.salary));
+        Spinner month_spinner = getActivity().findViewById(R.id.tb_spinner);
+        month_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Log.d("MonthSpinner", "Enter here "+position);
+                MainActivity.month_position = position + 1;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         return v;
 
 
@@ -85,19 +102,34 @@ public class FragmentBudget extends Fragment implements AdapterView.OnItemClickL
             notes[i] = translist[i][4];
             picture[i] = translist[i][5];
         }
+
+        ArrayList<Integer> temp_pos = new ArrayList<>();
+        for (int i = 0; i < date.length; i++) {
+            String[] line = date[i].split("-");
+            Log.d("Compare", line[1] + " vs " + MainActivity.month_position);
+            if (Integer.parseInt(line[1]) == MainActivity.month_position) {
+                temp_pos.add(i);
+            }
+        }
+
         for(int i = 0; i < category.length; i++){
             if(transaction_type[i].equalsIgnoreCase("Income")){
 
             }
             else{
-                if(map.containsKey(category[i])){
-                    double value = Integer.parseInt(map.get(category[i]));
-                    value += Double.parseDouble(amount[i]);
-                    map.put(category[i], String.valueOf(value));
+                String[] line = date[i].split("-");
+                Log.d("Budget compare", line[1] + " vs " + MainActivity.month_position);
+                if (Integer.parseInt(line[1]) == MainActivity.month_position) {
+                    if(map.containsKey(category[i])){
+                        double value = Integer.parseInt(map.get(category[i]));
+                        value += Double.parseDouble(amount[i]);
+                        map.put(category[i], String.valueOf(value));
+                    }
+                    else{
+                        map.put(category[i], amount[i]);
+                    }
                 }
-                else{
-                    map.put(category[i], amount[i]);
-                }
+
             }
 
 
@@ -140,6 +172,8 @@ public class FragmentBudget extends Fragment implements AdapterView.OnItemClickL
                 imgid[i] = R.drawable.ic_launcher_background;
             }
         }
+
+
 
         BudgetRecordAdapter adapter = new BudgetRecordAdapter(getActivity(), final_category, imgid, use_percentage, plan_percentage);
         list = (ListView) getActivity().findViewById(R.id.list);
