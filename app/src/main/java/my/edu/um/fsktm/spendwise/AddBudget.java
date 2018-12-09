@@ -5,12 +5,16 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.SeekBar;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 public class AddBudget extends AppCompatActivity {
-    private EditText editTextSalary, editTextClothes, editTextFood, editTextTransport, editTextEntertainment,
-    editTextOthers;
+    private EditText editTextSalary, editTextClothes, editTextFood, editTextTransport, editTextEntertainment, editTextOthers;
+    private SeekBar sb_Clothes, sb_Food, sb_Transport, sb_Entertainment, sb_Others;
+    private int per_clothes, per_food, per_transport, per_entertainment, per_others;
+
     private ArrayList<String> al;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,63 +25,129 @@ public class AddBudget extends AppCompatActivity {
         if(this.al == null){
             al = new ArrayList<>();
         }
+        sb_Clothes = findViewById(R.id.seekBarClothes);
+        sb_Clothes.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                progress = progress * 10;
+                per_clothes = progress;
+                Toast.makeText(AddBudget.this, "Percentage: "+progress+"%" , Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+        sb_Food = findViewById(R.id.seekBarFood);
+        sb_Food.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                progress = progress * 10;
+                per_food = progress;
+                Toast.makeText(AddBudget.this, "Percentage: "+progress+"%" , Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+        sb_Transport = findViewById(R.id.seekBarTransport);
+        sb_Transport.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                progress = progress * 10;
+                per_transport = progress;
+                Toast.makeText(AddBudget.this, "Percentage: "+progress+"%" , Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+        sb_Entertainment = findViewById(R.id.seekBarEntertainment);
+        sb_Entertainment.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                progress = progress * 10;
+                per_entertainment = progress;
+                Toast.makeText(AddBudget.this, "Percentage: "+progress+"%" , Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+        sb_Others = findViewById(R.id.seekBarOthers);
+        sb_Others.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                progress = progress * 10;
+                per_others = progress;
+                Toast.makeText(AddBudget.this, "Percentage: "+progress+"%" , Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+
     }
 
     public void saveBudget(View v){
         editTextSalary = findViewById(R.id.editTextSalary);
-        editTextClothes = findViewById(R.id.editTextClothes);
-        editTextEntertainment = findViewById(R.id.editTextEntertainment);
-        editTextFood = findViewById(R.id.editTextFood);
-        editTextTransport = findViewById(R.id.editTextTransport);
-        editTextOthers = findViewById(R.id.editTextOthers);
 
-        String salary, clothes, entertainment, food, transport, others;
-
-        salary = editTextSalary.getText().toString();
+        String salary = editTextSalary.getText().toString();
 
         if(salary.isEmpty()){
             editTextSalary.setError("Please enter Salary");
             return;
         }
 
-        clothes = editTextClothes.getText().toString();
 
-        if(clothes.isEmpty()){
-            editTextClothes.setError("Please enter Clothes");
-            return;
-        }
 
-        food = editTextFood.getText().toString();
-
-        if(food.isEmpty()){
-            editTextFood.setError("Please enter Food");
-            return;
-        }
-
-        transport = editTextTransport.getText().toString();
-
-        if(transport.isEmpty()){
-            editTextTransport.setError("Please enter Transport");
-            return;
-        }
-
-        others = editTextOthers.getText().toString();
-
-        if(others.isEmpty()){
-            editTextOthers.setError("Please enter Others");
-            return;
-        }
-
-        entertainment = editTextEntertainment.getText().toString();
-
-        if(entertainment.isEmpty()){
-            editTextEntertainment.setError("Please enter Entertainment");
-            return;
-        }
-
-        String line = salary + "," + clothes + "," + food + "," + transport + "," + entertainment + "," + others;
+        String line = salary + "," + per_clothes + "," + per_food + "," + per_transport + "," + per_entertainment + "," + per_others;
         al.clear();
-        al.add(line);
+        al.add(salary);
+        al.add(String.valueOf(per_clothes));
+        al.add(String.valueOf(per_food));
+        al.add(String.valueOf(per_transport));
+        al.add(String.valueOf(per_entertainment));
+        al.add(String.valueOf(per_others));
+
+
         Intent intent = new Intent();
         intent.putExtra("salary", al);
         setResult(RESULT_OK, intent);
