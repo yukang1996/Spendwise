@@ -26,23 +26,25 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        >
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/clothes" />
 
-        <EditText
-            android:id="@+id/editTextClothes"
+        <SeekBar
+            android:id="@+id/seekBarClothes"
+            style="@style/Widget.AppCompat.SeekBar.Discrete"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginRight="8dp"
-            android:ems="10"
-            android:hint="@string/clothes"
-            android:inputType="number" />
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:max="10"
+            android:progress="0" />
 
     </LinearLayout>
 
@@ -50,7 +52,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -58,63 +62,63 @@
             android:src="@drawable/food" />
 
 
-        <EditText
-            android:id="@+id/editTextFood"
+        <SeekBar
+            android:id="@+id/seekBarFood"
+            style="@style/Widget.AppCompat.SeekBar.Discrete"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginRight="8dp"
-            android:ems="10"
-            android:inputType="number"
-            android:hint="@string/food" />
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:max="10"
+            android:progress="0" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/transport" />
 
-        <EditText
-            android:id="@+id/editTextTransport"
+        <SeekBar
+            android:id="@+id/seekBarTransport"
+            style="@style/Widget.AppCompat.SeekBar.Discrete"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginRight="8dp"
-            android:ems="10"
-            android:inputType="number"
-            android:hint="@string/transport" />
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:max="10"
+            android:progress="0" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/entertainment" />
 
-        <EditText
-            android:id="@+id/editTextEntertainment"
+        <SeekBar
+            android:id="@+id/seekBarEntertainment"
+            style="@style/Widget.AppCompat.SeekBar.Discrete"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginRight="8dp"
-            android:ems="10"
-            android:inputType="number"
-            android:hint="@string/entertainment"
-            />
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:max="10"
+            android:progress="0" />
 
     </LinearLayout>
 
@@ -122,23 +126,24 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/others" />
 
-        <EditText
-            android:id="@+id/editTextOthers"
+        <SeekBar
+            android:id="@+id/seekBarOthers"
+            style="@style/Widget.AppCompat.SeekBar.Discrete"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginRight="8dp"
-            android:ems="10"
-            android:inputType="number"
-            android:hint="@string/others" />
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:max="10"
+            android:progress="0" />
 
     </LinearLayout>
 

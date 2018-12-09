@@ -76,9 +76,7 @@ public class FragmentOverview extends Fragment implements AdapterView.OnItemClic
 
     private void calculateIncomenExpense() {
         for (int i = 0; i < al.size(); i++) {
-            String []line = date[i].split("-");
-            Log.d("Over Compare", line[1]+" vs " + MainActivity.month_position);
-            if(Integer.parseInt(line[1]) == MainActivity.month_position){
+            if(MainActivity.month_position == 13){
                 if (transaction_type[i].equalsIgnoreCase("Income")) {
                     income = income + Double.parseDouble(amount[i]);
                 }
@@ -86,6 +84,19 @@ public class FragmentOverview extends Fragment implements AdapterView.OnItemClic
                     expenses = expenses + Double.parseDouble(amount[i]);
                 }
             }
+            else{
+                String []line = date[i].split("-");
+                Log.d("Over Compare", line[1]+" vs " + MainActivity.month_position);
+                if(Integer.parseInt(line[1]) == MainActivity.month_position){
+                    if (transaction_type[i].equalsIgnoreCase("Income")) {
+                        income = income + Double.parseDouble(amount[i]);
+                    }
+                    else{
+                        expenses = expenses + Double.parseDouble(amount[i]);
+                    }
+                }
+            }
+
 
         }
     }
@@ -124,9 +135,7 @@ public class FragmentOverview extends Fragment implements AdapterView.OnItemClic
 
             }
             else {
-                String[] line = date[i].split("-");
-                Log.d("Over2 compare", line[1] + " vs " + MainActivity.month_position);
-                if (Integer.parseInt(line[1]) == MainActivity.month_position) {
+                if(MainActivity.month_position == 13){
                     if (map.containsKey(category[i])) {
                         double value = Integer.parseInt(map.get(category[i]));
                         value += Double.parseDouble(amount[i]);
@@ -134,6 +143,20 @@ public class FragmentOverview extends Fragment implements AdapterView.OnItemClic
                     } else {
                         map.put(category[i], amount[i]);
                     }
+                }
+                else{
+                    String[] line = date[i].split("-");
+                    Log.d("Over2 compare", line[1] + " vs " + MainActivity.month_position);
+                    if (Integer.parseInt(line[1]) == MainActivity.month_position) {
+                        if (map.containsKey(category[i])) {
+                            double value = Integer.parseInt(map.get(category[i]));
+                            value += Double.parseDouble(amount[i]);
+                            map.put(category[i], valueOf(value));
+                        } else {
+                            map.put(category[i], amount[i]);
+                        }
+                    }
+
                 }
 
             }

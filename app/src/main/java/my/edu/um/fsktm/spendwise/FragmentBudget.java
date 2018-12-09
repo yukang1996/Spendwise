@@ -103,23 +103,27 @@ public class FragmentBudget extends Fragment implements AdapterView.OnItemClickL
             picture[i] = translist[i][5];
         }
 
-        ArrayList<Integer> temp_pos = new ArrayList<>();
-        for (int i = 0; i < date.length; i++) {
-            String[] line = date[i].split("-");
-            Log.d("Compare", line[1] + " vs " + MainActivity.month_position);
-            if (Integer.parseInt(line[1]) == MainActivity.month_position) {
-                temp_pos.add(i);
-            }
-        }
+//        ArrayList<Integer> temp_pos = new ArrayList<>();
+//        for (int i = 0; i < date.length; i++) {
+//            if(MainActivity.month_position == 13){
+//                temp_pos.add(i);
+//            }
+//            else{
+//                String[] line = date[i].split("-");
+//                Log.d("Compare", line[1] + " vs " + MainActivity.month_position);
+//                if (Integer.parseInt(line[1]) == MainActivity.month_position) {
+//                    temp_pos.add(i);
+//                }
+//            }
+//
+//        }
 
         for(int i = 0; i < category.length; i++){
             if(transaction_type[i].equalsIgnoreCase("Income")){
 
             }
             else{
-                String[] line = date[i].split("-");
-                Log.d("Budget compare", line[1] + " vs " + MainActivity.month_position);
-                if (Integer.parseInt(line[1]) == MainActivity.month_position) {
+                if(MainActivity.month_position == 13){
                     if(map.containsKey(category[i])){
                         double value = Integer.parseInt(map.get(category[i]));
                         value += Double.parseDouble(amount[i]);
@@ -128,6 +132,21 @@ public class FragmentBudget extends Fragment implements AdapterView.OnItemClickL
                     else{
                         map.put(category[i], amount[i]);
                     }
+                }
+                else{
+                    String[] line = date[i].split("-");
+                    Log.d("Budget compare", line[1] + " vs " + MainActivity.month_position);
+                    if (Integer.parseInt(line[1]) == MainActivity.month_position) {
+                        if(map.containsKey(category[i])){
+                            double value = Integer.parseInt(map.get(category[i]));
+                            value += Double.parseDouble(amount[i]);
+                            map.put(category[i], String.valueOf(value));
+                        }
+                        else{
+                            map.put(category[i], amount[i]);
+                        }
+                    }
+
                 }
 
             }

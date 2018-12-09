@@ -2,6 +2,7 @@ package my.edu.um.fsktm.spendwise;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.v4.app.ActivityCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,12 +14,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TransactionRecordAdapter extends ArrayAdapter<String> {
-    private final Activity context;
-    private final String[] amount;
-    private final Integer[] imgid;
-    private final String[] date;
-    private final String[] transaction_type;
-
+    private Activity context;
+    private String[] amount;
+    private Integer[] imgid;
+    private String[] date;
+    private String[] transaction_type;
 
 
     public TransactionRecordAdapter(Activity context, String[] amount, Integer[] imgid, String[] transaction_type, String[] date){
@@ -47,4 +47,6 @@ public class TransactionRecordAdapter extends ArrayAdapter<String> {
         return rowView;
 
     };
+
+
 }

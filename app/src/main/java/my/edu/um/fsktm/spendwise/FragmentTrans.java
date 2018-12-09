@@ -34,6 +34,8 @@ public class FragmentTrans extends Fragment implements AdapterView.OnItemClickLi
     String new_transaction_type[];
     Integer new_img_id[];
     String new_date[];
+    TransactionRecordAdapter adapter;
+    private boolean trans_trigger = false;
 
 
 
@@ -95,11 +97,17 @@ public class FragmentTrans extends Fragment implements AdapterView.OnItemClickLi
         }
         ArrayList<Integer> temp_pos = new ArrayList<>();
         for (int i = 0; i < date.length; i++){
-            String[] line = date[i].split("-");
-            Log.d("Compare", line[1]+" vs " + MainActivity.month_position);
-            if(Integer.parseInt(line[1]) == MainActivity.month_position){
+            if(MainActivity.month_position == 13){
                 temp_pos.add(i);
             }
+            else {
+                String[] line = date[i].split("-");
+                Log.d("Compare", line[1]+" vs " + MainActivity.month_position);
+                if(Integer.parseInt(line[1]) == MainActivity.month_position){
+                    temp_pos.add(i);
+                }
+            }
+
 
         }
         Log.d("FFFF", temp_pos.toString());
@@ -143,7 +151,8 @@ public class FragmentTrans extends Fragment implements AdapterView.OnItemClickLi
 
 
 
-        TransactionRecordAdapter adapter = new TransactionRecordAdapter(getActivity(), new_amount, new_img_id, new_transaction_type, new_date);
+        adapter = new TransactionRecordAdapter(getActivity(), new_amount, new_img_id, new_transaction_type, new_date);
+        trans_trigger = true;
         list = (ListView) getActivity().findViewById(R.id.list);
         list.setOnItemClickListener(this);
         list.setAdapter(adapter);
@@ -181,6 +190,10 @@ public class FragmentTrans extends Fragment implements AdapterView.OnItemClickLi
 
 
     }
+
+
+
+
 
 
 

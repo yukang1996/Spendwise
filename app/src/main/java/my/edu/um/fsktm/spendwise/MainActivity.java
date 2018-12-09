@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.TB);
         Spinner MonthSpinner = findViewById(R.id.tb_spinner);
-        String[] type_of_months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+        String[] type_of_months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December","All"};
         ArrayAdapter<String> adapterMonth = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, type_of_months);
         MonthSpinner.setAdapter(adapterMonth);
         MonthSpinner.setSelection(pos_month-1);

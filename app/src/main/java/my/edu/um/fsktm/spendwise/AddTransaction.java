@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -101,6 +102,7 @@ public class AddTransaction extends AppCompatActivity implements AdapterView.OnI
         intent.putExtra("array", arrayList);
         setResult(RESULT_OK, intent);
         this.finish();
+
 
     }
 
