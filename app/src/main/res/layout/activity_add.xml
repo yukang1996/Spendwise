@@ -90,12 +90,6 @@
                 android:layout_marginRight="8dp"
                 android:ems="10"
                 android:hint="@string/picture" />
-            <Button
-                android:id="@+id/camera_trigger"
-                android:onClick="cameraClick"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Camera"/>
 
             <LinearLayout
                 android:layout_width="match_parent"

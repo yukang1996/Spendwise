@@ -1,6 +1,7 @@
 package my.edu.um.fsktm.spendwise;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -138,7 +139,6 @@ public class AddBudget extends AppCompatActivity {
 
 
 
-        String line = salary + "," + per_clothes + "," + per_food + "," + per_transport + "," + per_entertainment + "," + per_others;
         al.clear();
         al.add(salary);
         al.add(String.valueOf(per_clothes));
@@ -146,6 +146,10 @@ public class AddBudget extends AppCompatActivity {
         al.add(String.valueOf(per_transport));
         al.add(String.valueOf(per_entertainment));
         al.add(String.valueOf(per_others));
+
+        final MediaPlayer mp = new MediaPlayer().create(this, R.raw.mario_coin);
+        mp.start();
+
 
 
         Intent intent = new Intent();

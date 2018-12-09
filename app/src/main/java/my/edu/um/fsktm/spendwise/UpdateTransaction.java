@@ -1,6 +1,7 @@
 package my.edu.um.fsktm.spendwise;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -98,7 +99,7 @@ public class UpdateTransaction extends AppCompatActivity {
         calender_view.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-                cur_date = dayOfMonth+"-"+ month+"-"+ year;
+                cur_date = dayOfMonth+"-"+ month + 1 +"-"+ year;
                 Log.d("Dateeee", cur_date);
             }
         });
@@ -172,6 +173,10 @@ public class UpdateTransaction extends AppCompatActivity {
         al.remove(position);
         al.add(line);
         Log.d("NewArray", al.toString());
+
+        final MediaPlayer mp = new MediaPlayer().create(this, R.raw.mario_coin);
+        mp.start();
+        
         Intent intent = new Intent();
         intent.putExtra("newarray", al);
         setResult(RESULT_OK, intent);

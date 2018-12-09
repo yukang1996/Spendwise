@@ -1,6 +1,7 @@
 package my.edu.um.fsktm.spendwise;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -23,11 +24,9 @@ public class AddTransaction extends AppCompatActivity implements AdapterView.OnI
     private TextView tv_transaction_type;
     private Spinner spinner_category;
     private CalendarView calender_view;
-    private Validator nonempty_validate;
     private EditText editTextAmount, editTextNote, editTextPicture;
     private ArrayList<String> arrayList;
     private String transact_type = "Expense";
-    private SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
     private String date = "";
 
     @Override
@@ -98,6 +97,10 @@ public class AddTransaction extends AppCompatActivity implements AdapterView.OnI
         String line = date + "," + transact_type + "," + spValue_category + "," + amount + "," + note + "," + picture;
         Log.d("LINE", line);
         arrayList.add(line);
+
+        final MediaPlayer mp = new MediaPlayer().create(this, R.raw.mario_coin);
+        mp.start();
+
         Intent intent = new Intent();
         intent.putExtra("array", arrayList);
         setResult(RESULT_OK, intent);
