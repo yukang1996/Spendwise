@@ -15,11 +15,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.Month;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -27,13 +28,18 @@ public class MainActivity extends AppCompatActivity {
     public ArrayList<String> arraylist;
     public ArrayList<String> budgetlist;
     public boolean trigger = false;
-    public String month;
     public static int month_position;
+    public static String fragment_type = "";
+    public static int pos_month;
+    public static int pos_year;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.TB);
+        final TextView setTv_year = (TextView)findViewById(R.id.tv_year);
+        final Spinner MonthSpinner = findViewById(R.id.tb_spinner);
         DatabaseFunction databaseFunction = new DatabaseFunction();
         this.arraylist = databaseFunction.readTransFromFile("transaction.txt", this);
         if(this.arraylist == null){
@@ -53,20 +59,197 @@ public class MainActivity extends AppCompatActivity {
         }
         DateFormat dateFormat = new SimpleDateFormat("MM");
         Date date = new Date();
-        int pos_month = Integer.parseInt(dateFormat.format(date));
+        DateFormat dateFormat1 = new SimpleDateFormat(("YYYY"));
+        Date date1 = new Date();
+        pos_year = Integer.parseInt(dateFormat1.format(date1));
+        pos_month = Integer.parseInt(dateFormat.format(date));
+        ImageButton btn_back = findViewById(R.id.button_back);
+        Log.d("Going to Entered:", String.valueOf(pos_month));
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(pos_month == 1){
+                    pos_year -= 1;
+                    pos_month = 12;
+                }
+                else{
+                    pos_month -= 1;
+                }
+                Log.d("Entered:", String.valueOf(pos_month));
+                MonthSpinner.setSelection(pos_month-1);
+                setTv_year.setText(String.valueOf(pos_year));
+                Fragment fragment = new FragmentIntro();
+                Bundle bundle = new Bundle();
+                if (fragment_type.equalsIgnoreCase("transaction")) {
+                    fragment = new FragmentTrans();
+                    if (bundle != null) {
+                        bundle.putStringArrayList("array", arraylist);
+                    }
+                    fragment.setArguments(bundle);
+                } else if (fragment_type.equalsIgnoreCase("budget")) {
+                    if (trigger == true) {
+                        Log.d("Trigger", String.valueOf(trigger));
+                        trigger = false;
+                        String line = budgetlist.get(0);
 
+                        String temp[] = line.split(",");
+                        budgetlist = new ArrayList<>();
+                        for (int i = 0; i < temp.length; i++) {
+                            Log.d("Temp[i]", temp[i]);
+                            budgetlist.add(temp[i]);
+                        }
+                    }
+                    Log.d("Here", String.valueOf(budgetlist));
+                    fragment = new FragmentBudget();
+                    if (bundle != null) {
+                        bundle.putStringArrayList("budget", budgetlist);
+                        bundle.putStringArrayList("array", arraylist);
+                    }
+                    fragment.setArguments(bundle);
+                } else if (fragment_type.equalsIgnoreCase("overview")) {
+                    fragment = new FragmentOverview();
+                    if (bundle != null) {
+                        bundle.putStringArrayList("array", arraylist);
+                    }
+                    fragment.setArguments(bundle);
+                } else if (fragment_type.equalsIgnoreCase("analyze")) {
+                    if (bundle != null) {
+                        bundle.putStringArrayList("budget", budgetlist);
+                        bundle.putStringArrayList("array", arraylist);
+                    }
+                    fragment.setArguments(bundle);
+                }
 
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.TB);
-        Spinner MonthSpinner = findViewById(R.id.tb_spinner);
+                FragmentManager manager = getSupportFragmentManager();
+                FragmentTransaction transaction = manager.beginTransaction();
+                transaction.replace(R.id.FragOutput, fragment);
+                transaction.commitAllowingStateLoss();
+
+            }
+        });
+        ImageButton btn_next = findViewById(R.id.button_next);
+        btn_next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(pos_month == 12){
+                    pos_year += 1;
+                    pos_month = 1;
+                }
+                else{
+                    pos_month += 1;
+                }
+                Log.d("Entered:", String.valueOf(pos_month));
+                MonthSpinner.setSelection(pos_month-1);
+                setTv_year.setText(String.valueOf(pos_year));
+                Fragment fragment = new FragmentIntro();
+                Bundle bundle = new Bundle();
+                if (fragment_type.equalsIgnoreCase("transaction")) {
+                    fragment = new FragmentTrans();
+                    if (bundle != null) {
+                        bundle.putStringArrayList("array", arraylist);
+                    }
+                    fragment.setArguments(bundle);
+                } else if (fragment_type.equalsIgnoreCase("budget")) {
+                    if (trigger == true) {
+                        Log.d("Trigger", String.valueOf(trigger));
+                        trigger = false;
+                        String line = budgetlist.get(0);
+
+                        String temp[] = line.split(",");
+                        budgetlist = new ArrayList<>();
+                        for (int i = 0; i < temp.length; i++) {
+                            Log.d("Temp[i]", temp[i]);
+                            budgetlist.add(temp[i]);
+                        }
+                    }
+                    Log.d("Here", String.valueOf(budgetlist));
+                    fragment = new FragmentBudget();
+                    if (bundle != null) {
+                        bundle.putStringArrayList("budget", budgetlist);
+                        bundle.putStringArrayList("array", arraylist);
+                    }
+                    fragment.setArguments(bundle);
+                } else if (fragment_type.equalsIgnoreCase("overview")) {
+                    fragment = new FragmentOverview();
+                    if (bundle != null) {
+                        bundle.putStringArrayList("array", arraylist);
+                    }
+                    fragment.setArguments(bundle);
+                } else if (fragment_type.equalsIgnoreCase("analyze")) {
+                    if (bundle != null) {
+                        bundle.putStringArrayList("budget", budgetlist);
+                        bundle.putStringArrayList("array", arraylist);
+                    }
+                    fragment.setArguments(bundle);
+                }
+
+                FragmentManager manager = getSupportFragmentManager();
+                FragmentTransaction transaction = manager.beginTransaction();
+                transaction.replace(R.id.FragOutput, fragment);
+                transaction.commitAllowingStateLoss();
+            }
+
+        });
+
         String[] type_of_months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December","All"};
         ArrayAdapter<String> adapterMonth = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, type_of_months);
         MonthSpinner.setAdapter(adapterMonth);
         MonthSpinner.setSelection(pos_month-1);
+        setTv_year.setText(String.valueOf(pos_year));
         MonthSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Log.d("MonthSpinner", "Main:Enter here "+position);
-                MainActivity.month_position = position + 1;
+                month_position = position + 1;
+                if(month_position != 13){
+                    pos_month = month_position;
+                }
+                Fragment fragment = new FragmentIntro();
+                Bundle bundle = new Bundle();
+                if (fragment_type.equalsIgnoreCase("transaction")) {
+                    fragment = new FragmentTrans();
+                    if (bundle != null) {
+                        bundle.putStringArrayList("array", arraylist);
+                    }
+                    fragment.setArguments(bundle);
+                } else if (fragment_type.equalsIgnoreCase("budget")) {
+                    if (trigger == true) {
+                        Log.d("Trigger", String.valueOf(trigger));
+                        trigger = false;
+                        String line = budgetlist.get(0);
+
+                        String temp[] = line.split(",");
+                        budgetlist = new ArrayList<>();
+                        for (int i = 0; i < temp.length; i++) {
+                            Log.d("Temp[i]", temp[i]);
+                            budgetlist.add(temp[i]);
+                        }
+                    }
+                    Log.d("Here", String.valueOf(budgetlist));
+                    fragment = new FragmentBudget();
+                    if (bundle != null) {
+                        bundle.putStringArrayList("budget", budgetlist);
+                        bundle.putStringArrayList("array", arraylist);
+                    }
+                    fragment.setArguments(bundle);
+                } else if (fragment_type.equalsIgnoreCase("overview")) {
+                    fragment = new FragmentOverview();
+                    if (bundle != null) {
+                        bundle.putStringArrayList("array", arraylist);
+                    }
+                    fragment.setArguments(bundle);
+                } else if (fragment_type.equalsIgnoreCase("analyze")) {
+                    if (bundle != null) {
+                        bundle.putStringArrayList("budget", budgetlist);
+                        bundle.putStringArrayList("array", arraylist);
+                    }
+                    fragment.setArguments(bundle);
+                }
+
+                FragmentManager manager = getSupportFragmentManager();
+                FragmentTransaction transaction = manager.beginTransaction();
+                transaction.replace(R.id.FragOutput, fragment);
+                transaction.commitAllowingStateLoss();
             }
 
             @Override
@@ -83,12 +266,14 @@ public class MainActivity extends AppCompatActivity {
                 Bundle bundle = new Bundle();
                 Fragment fragment = null;
                 if (view == findViewById(R.id.transaction)) {
+                    fragment_type = "transaction";
                     fragment = new FragmentTrans();
                     if(bundle != null) {
                         bundle.putStringArrayList("array", arraylist);
                     }
                     fragment.setArguments(bundle);
                 } else if (view == findViewById(R.id.budget)) {
+                    fragment_type = "budget";
                     if(trigger == true) {
                         Log.d("Trigger", String.valueOf(trigger));
                         trigger = false;
@@ -110,6 +295,7 @@ public class MainActivity extends AppCompatActivity {
                     fragment.setArguments(bundle);
 
                 } else if (view == findViewById(R.id.analyze)) {
+                    fragment_type = "analyze";
                     if(trigger = true) {
                         trigger = false;
                         String line = budgetlist.get(0);
@@ -131,6 +317,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                 } else if (view == findViewById(R.id.overview)){
+                    fragment_type = "overview";
                     fragment = new FragmentOverview();
                     if(bundle != null){
                         bundle.putStringArrayList("array", arraylist);
@@ -144,16 +331,7 @@ public class MainActivity extends AppCompatActivity {
                 transaction.commit();
             }
         };
-        Button editBudget = (Button) findViewById(R.id.editBudget);
-        editBudget.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), AddBudget.class);
-                intent.putExtra("salary", budgetlist);
-                startActivityForResult(intent, 2);
 
-            }
-        });
         Button budget = (Button) findViewById(R.id.budget);
         budget.setOnClickListener(listener);
         Button transac = (Button) findViewById(R.id.transaction);
@@ -187,30 +365,115 @@ public class MainActivity extends AppCompatActivity {
         transaction.commit();
 
     }
-        public void onActivityResult(int requestCode, int resultCode, Intent data){
-        Log.d("Main","qer"+requestCode);
-            if(requestCode == 1){
-                if(resultCode == RESULT_OK){
-                    this.arraylist = data.getStringArrayListExtra("array");
-                    Log.d("Array", this.arraylist.toString());
-                }
-            }
-            if(requestCode == 2){
-                if(resultCode == RESULT_OK){
-                    this.budgetlist = data.getStringArrayListExtra("salary");
-                    Log.d("Salary", this.budgetlist.toString());
-                }
-            }
-            if(requestCode == 3){
-                Log.d("M3", "in ma?");
-                if(resultCode == RESULT_OK){
-                    this.arraylist = data.getStringArrayListExtra("newarray");
-                    Log.d("New array", arraylist.toString());
-                }
-            }
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d("Main", "qer" + requestCode);
+        Fragment fragment = new FragmentIntro();
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                this.arraylist = data.getStringArrayListExtra("array");
+                Log.d("Array", this.arraylist.toString());
+                Bundle bundle = new Bundle();
+                if (fragment_type.equalsIgnoreCase("transaction")) {
+                    fragment = new FragmentTrans();
+                    if (bundle != null) {
+                        bundle.putStringArrayList("array", arraylist);
+                    }
+                    fragment.setArguments(bundle);
+                } else if (fragment_type.equalsIgnoreCase("budget")) {
+                    if (trigger == true) {
+                        Log.d("Trigger", String.valueOf(trigger));
+                        trigger = false;
+                        String line = budgetlist.get(0);
 
+                        String temp[] = line.split(",");
+                        budgetlist = new ArrayList<>();
+                        for (int i = 0; i < temp.length; i++) {
+                            Log.d("Temp[i]", temp[i]);
+                            budgetlist.add(temp[i]);
+                        }
+                    }
+                    Log.d("Here", String.valueOf(budgetlist));
+                    fragment = new FragmentBudget();
+                    if (bundle != null) {
+                        bundle.putStringArrayList("budget", budgetlist);
+                        bundle.putStringArrayList("array", arraylist);
+                    }
+                    fragment.setArguments(bundle);
+                } else if (fragment_type.equalsIgnoreCase("overview")) {
+                    fragment = new FragmentOverview();
+                    if (bundle != null) {
+                        bundle.putStringArrayList("array", arraylist);
+                    }
+                    fragment.setArguments(bundle);
+                } else if (fragment_type.equalsIgnoreCase("analyze")) {
+                    if (bundle != null) {
+                        bundle.putStringArrayList("budget", budgetlist);
+                        bundle.putStringArrayList("array", arraylist);
+                    }
+                    fragment.setArguments(bundle);
+                }
 
+                FragmentManager manager = getSupportFragmentManager();
+                FragmentTransaction transaction = manager.beginTransaction();
+                transaction.replace(R.id.FragOutput, fragment);
+                transaction.commitAllowingStateLoss();
+
+            }
         }
+        if (requestCode == 2) {
+            if (resultCode == RESULT_OK) {
+                this.budgetlist = data.getStringArrayListExtra("salary");
+                Log.d("Salary", this.budgetlist.toString());
+                Bundle bundle = new Bundle();
+                if (fragment_type.equalsIgnoreCase("budget")) {
+                    if (trigger == true) {
+                        Log.d("Trigger", String.valueOf(trigger));
+                        trigger = false;
+                        String line = budgetlist.get(0);
+
+                        String temp[] = line.split(",");
+                        budgetlist = new ArrayList<>();
+                        for (int i = 0; i < temp.length; i++) {
+                            Log.d("Temp[i]", temp[i]);
+                            budgetlist.add(temp[i]);
+                        }
+                    }
+                    Log.d("Here", String.valueOf(budgetlist));
+                    fragment = new FragmentBudget();
+                    if (bundle != null) {
+                        bundle.putStringArrayList("budget", budgetlist);
+                        bundle.putStringArrayList("array", arraylist);
+                    }
+                    fragment.setArguments(bundle);
+                    FragmentManager manager = getSupportFragmentManager();
+                    FragmentTransaction transaction = manager.beginTransaction();
+                    transaction.replace(R.id.FragOutput, fragment);
+                    transaction.commitAllowingStateLoss();
+                }
+            }
+        }
+        if (requestCode == 3) {
+            Log.d("M3", "in ma?");
+            if (resultCode == RESULT_OK) {
+                this.arraylist = data.getStringArrayListExtra("newarray");
+                Log.d("New array", arraylist.toString());
+
+                Bundle bundle = new Bundle();
+                if (fragment_type.equalsIgnoreCase("transaction")) {
+                    fragment = new FragmentTrans();
+                    if (bundle != null) {
+                        bundle.putStringArrayList("array", arraylist);
+                    }
+                    fragment.setArguments(bundle);
+                    FragmentManager manager = getSupportFragmentManager();
+                    FragmentTransaction transaction = manager.beginTransaction();
+                    transaction.replace(R.id.FragOutput, fragment);
+                    transaction.commitAllowingStateLoss();
+                }
+            }
+        }
+    }
+
 
 
         public boolean onCreateOptionsMenu (Menu menu){
@@ -239,7 +502,10 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.action_add:
                     return true;
-                case R.id.action_category:
+                case R.id.action_editbudget:
+                    Intent intent = new Intent(getApplicationContext(), AddBudget.class);
+                    intent.putExtra("salary", budgetlist);
+                    startActivityForResult(intent, 2);
                     return true;
                 case R.id.action_option:
                     return true;

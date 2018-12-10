@@ -27,7 +27,6 @@ public class FragmentBudget extends Fragment implements AdapterView.OnItemClickL
     String category[];
     String amount[];
     String notes[];
-    String picture[];
     int [] plan_percentage;
     TextView editSalary;
     double salary;
@@ -63,19 +62,7 @@ public class FragmentBudget extends Fragment implements AdapterView.OnItemClickL
         View v = inflater.inflate(R.layout.fragment_budget, container, false);
         editSalary = (TextView) v.findViewById(R.id.tv_salary);
         editSalary.setText(String.format("Salary: RM %.2f",this.salary));
-        Spinner month_spinner = getActivity().findViewById(R.id.tb_spinner);
-        month_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("MonthSpinner", "Enter here "+position);
-                MainActivity.month_position = position + 1;
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
         return v;
 
 
@@ -92,7 +79,6 @@ public class FragmentBudget extends Fragment implements AdapterView.OnItemClickL
         this.category = new String[al.size()];
         this.amount = new String[al.size()];
         this.notes = new String[al.size()];
-        this.picture = new String[al.size()];
         for (int i = 0; i < al.size(); i++){
             translist[i] = al.get(i).toString().split(",");
             date[i] = translist[i][0];
@@ -100,7 +86,6 @@ public class FragmentBudget extends Fragment implements AdapterView.OnItemClickL
             category[i] = translist[i][2];
             amount[i] = translist[i][3];
             notes[i] = translist[i][4];
-            picture[i] = translist[i][5];
         }
 
 //        ArrayList<Integer> temp_pos = new ArrayList<>();
@@ -135,17 +120,21 @@ public class FragmentBudget extends Fragment implements AdapterView.OnItemClickL
                 }
                 else{
                     String[] line = date[i].split("-");
-                    Log.d("Budget compare", line[1] + " vs " + MainActivity.month_position);
-                    if (Integer.parseInt(line[1]) == MainActivity.month_position) {
-                        if(map.containsKey(category[i])){
-                            double value = Integer.parseInt(map.get(category[i]));
-                            value += Double.parseDouble(amount[i]);
-                            map.put(category[i], String.valueOf(value));
-                        }
-                        else{
-                            map.put(category[i], amount[i]);
+                    Log.d("Budget compareYear", line[2] + " vs " + MainActivity.pos_year);
+                    if(Integer.parseInt(line[2]) == MainActivity.pos_year){
+                        Log.d("Budget compare", line[1] + " vs " + MainActivity.pos_month);
+                        if (Integer.parseInt(line[1]) == MainActivity.pos_month) {
+                            if(map.containsKey(category[i])){
+                                double value = Integer.parseInt(map.get(category[i]));
+                                value += Double.parseDouble(amount[i]);
+                                map.put(category[i], String.valueOf(value));
+                            }
+                            else{
+                                map.put(category[i], amount[i]);
+                            }
                         }
                     }
+
 
                 }
 

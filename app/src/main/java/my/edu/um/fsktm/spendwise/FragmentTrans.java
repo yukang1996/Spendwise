@@ -10,11 +10,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
@@ -27,15 +32,13 @@ public class FragmentTrans extends Fragment implements AdapterView.OnItemClickLi
     String category[];
     String amount[];
     String notes[];
-    String picture[];
     Integer[] imgid;
-    boolean allowRefresh = false;
+    public static int delete_position;
     String new_amount[];
     String new_transaction_type[];
     Integer new_img_id[];
     String new_date[];
     TransactionRecordAdapter adapter;
-    private boolean trans_trigger = false;
 
 
 
@@ -55,19 +58,6 @@ public class FragmentTrans extends Fragment implements AdapterView.OnItemClickLi
         }
         Log.d("Array", al.toString());
 
-        Spinner month_spinner = getActivity().findViewById(R.id.tb_spinner);
-        month_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("MonthSpinner", "Enter here "+position);
-                MainActivity.month_position = position + 1;
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
 
         return inflater.inflate(R.layout.fragment_transaction, container, false);
     }
@@ -83,7 +73,6 @@ public class FragmentTrans extends Fragment implements AdapterView.OnItemClickLi
         this.category = new String[al.size()];
         this.amount = new String[al.size()];
         this.notes = new String[al.size()];
-        this.picture = new String[al.size()];
         Log.d("TL", String.valueOf(al.size()));
         for (int i = 0; i < al.size(); i++){
             Log.d("TL2", al.get(i).toString());
@@ -93,19 +82,22 @@ public class FragmentTrans extends Fragment implements AdapterView.OnItemClickLi
             category[i] = translist[i][2];
             amount[i] = translist[i][3];
             notes[i] = translist[i][4];
-            picture[i] = translist[i][5];
         }
         ArrayList<Integer> temp_pos = new ArrayList<>();
         for (int i = 0; i < date.length; i++){
             if(MainActivity.month_position == 13){
                 temp_pos.add(i);
             }
-            else {
+            else{
                 String[] line = date[i].split("-");
-                Log.d("Compare", line[1]+" vs " + MainActivity.month_position);
-                if(Integer.parseInt(line[1]) == MainActivity.month_position){
-                    temp_pos.add(i);
+                Log.d("CompareYear", line[2]+" vs " + MainActivity.pos_year);
+                if(Integer.parseInt(line[2]) == MainActivity.pos_year){
+                    Log.d("Compare", line[1]+" vs " + MainActivity.pos_month);
+                    if(Integer.parseInt(line[1]) == MainActivity.pos_month){
+                        temp_pos.add(i);
+                    }
                 }
+
             }
 
 
@@ -152,7 +144,6 @@ public class FragmentTrans extends Fragment implements AdapterView.OnItemClickLi
 
 
         adapter = new TransactionRecordAdapter(getActivity(), new_amount, new_img_id, new_transaction_type, new_date);
-        trans_trigger = true;
         list = (ListView) getActivity().findViewById(R.id.list);
         list.setOnItemClickListener(this);
         list.setAdapter(adapter);
@@ -166,12 +157,25 @@ public class FragmentTrans extends Fragment implements AdapterView.OnItemClickLi
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         String selectedItem = String.valueOf(position);
+        //confirm the position of want to delete object in the whole list.
+        for (int i = 0;i < date.length; i++){
+            Log.d("Compare", date[i] +"vs"+new_date[position]);
+            if(date[i] == new_date[position]){
+                Log.d("Compare2", transaction_type[i] +"vs"+new_transaction_type[position]);
+                if(transaction_type[i] == new_transaction_type[position]){
+                    Log.d("Compare3", amount[i] +"vs"+new_amount[position]);
+                    if(amount[i] == new_amount[position]){
+                        delete_position = i;
+                        Log.d("Deleteposi: ", String.valueOf(delete_position));
+                    }
+                }
+            }
+            Log.d("Finsih", "finisssssss");
+        }
         Log.d("Selecting", selectedItem);
         Toast.makeText(getActivity(), selectedItem, Toast.LENGTH_SHORT).show();
         String temp_pos = String.valueOf(position);
         Intent intent = new Intent(getContext(), UpdateTransaction.class);
-        this.allowRefresh = true;
-        Log.d("Changed", String.valueOf(allowRefresh));
         if(transaction_type[position].equalsIgnoreCase("Income")){
             Log.d("INcome","incomeee");
             intent.putExtra("array", al);

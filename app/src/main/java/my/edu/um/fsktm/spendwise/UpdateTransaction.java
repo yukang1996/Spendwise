@@ -25,7 +25,7 @@ public class UpdateTransaction extends AppCompatActivity {
     private Spinner spinner_category;
     private CalendarView calender_view;
     private Validator nonempty_validate;
-    private EditText editTextDate,editTextAmount, editTextNote, editTextPicture;
+    private EditText editTextDate,editTextAmount, editTextNote;
     private ArrayList<String> al;
     private String transact_type ;
     private SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
@@ -36,7 +36,6 @@ public class UpdateTransaction extends AppCompatActivity {
     String category[];
     String amount[];
     String notes[];
-    String picture[];
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -88,6 +87,7 @@ public class UpdateTransaction extends AppCompatActivity {
         calender_view = new CalendarView(this);
         calender_view = findViewById(R.id.calendarView);
         Log.d("Oldd", date[position]);
+        cur_date = date[position];
         long ms_date = 0;
         try{
             Date d = sdf.parse(date[position]);
@@ -99,7 +99,8 @@ public class UpdateTransaction extends AppCompatActivity {
         calender_view.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-                cur_date = dayOfMonth+"-"+ month + 1 +"-"+ year;
+                month += 1;
+                cur_date = dayOfMonth+"-"+ month  +"-"+ year;
                 Log.d("Dateeee", cur_date);
             }
         });
@@ -109,10 +110,8 @@ public class UpdateTransaction extends AppCompatActivity {
 //        editTextCategory = (EditText) findViewById(R.id.editTextCategory);
         editTextAmount = (EditText) findViewById(R.id.editTextAmount);
         editTextNote = (EditText) findViewById(R.id.editTextNote);
-        editTextPicture = (EditText) findViewById(R.id.editTextPicture);
         editTextAmount.setText(amount[position]);
         editTextNote.setText(notes[position]);
-        editTextPicture.setText(picture[position]);
     }
 
     private void process_Info() {
@@ -122,7 +121,6 @@ public class UpdateTransaction extends AppCompatActivity {
         this.category = new String[al.size()];
         this.amount = new String[al.size()];
         this.notes = new String[al.size()];
-        this.picture = new String[al.size()];
         Log.d("TLxxx", String.valueOf(al.size()));
         for (int i = 0; i < al.size(); i++){
             Log.d("TL2xxx", al.get(i).toString());
@@ -132,7 +130,6 @@ public class UpdateTransaction extends AppCompatActivity {
             category[i] = translist[i][2];
             amount[i] = translist[i][3];
             notes[i] = translist[i][4];
-            picture[i] = translist[i][5];
         }
     }
 
@@ -166,17 +163,18 @@ public class UpdateTransaction extends AppCompatActivity {
 
         note = editTextNote.getText().toString();
 
-        picture = editTextPicture.getText().toString();
 
-        String line = cur_date + "," + transact_type + "," + spValue_category + "," + amount + "," + note + "," + picture;
+        String line = cur_date + "," + transact_type + "," + spValue_category + "," + amount + "," + note;
         Log.d("LINE", line);
-        al.remove(position);
+        Log.d("Position: ", String.valueOf(FragmentTrans.delete_position));
+        al.remove(FragmentTrans.delete_position);
+//        Log.d("Deleted", al.remove(position));
         al.add(line);
         Log.d("NewArray", al.toString());
 
         final MediaPlayer mp = new MediaPlayer().create(this, R.raw.mario_coin);
         mp.start();
-        
+
         Intent intent = new Intent();
         intent.putExtra("newarray", al);
         setResult(RESULT_OK, intent);
@@ -191,12 +189,5 @@ public class UpdateTransaction extends AppCompatActivity {
         this.finish();
     }
 
-    public void deleteRecord(View v){
-        Log.d("Delete", "Deleted row:"+position);
-        al.remove(position);
-        Intent intent = new Intent();
-        intent.putExtra("newarray", al);
-        setResult(RESULT_OK, intent);
-        this.finish();
-    }
+
 }

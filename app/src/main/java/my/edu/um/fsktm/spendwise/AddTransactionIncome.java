@@ -34,7 +34,7 @@ public class AddTransactionIncome extends AppCompatActivity implements AdapterVi
     private Spinner spinner_category;
     private CalendarView calender_view;
     private Validator nonempty_validate;
-    private EditText editTextAmount, editTextNote, editTextPicture;
+    private EditText editTextAmount, editTextNote;
     private ArrayList<String> arrayList;
     private String transact_type = "Income";
     private SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
@@ -73,7 +73,6 @@ public class AddTransactionIncome extends AppCompatActivity implements AdapterVi
 //        editTextCategory = (EditText) findViewById(R.id.editTextCategory);
         editTextAmount = (EditText) findViewById(R.id.editTextAmount);
         editTextNote = (EditText) findViewById(R.id.editTextNote);
-        editTextPicture = (EditText) findViewById(R.id.editTextPicture);
 
         String date = sdf.format(calender_view.getDate());
         String  amount, note, picture;
@@ -102,9 +101,8 @@ public class AddTransactionIncome extends AppCompatActivity implements AdapterVi
 
         note = editTextNote.getText().toString();
 
-        picture = editTextPicture.getText().toString();
 
-        String line = date + "," + transact_type + "," + spValue_category + "," + amount + "," + note + "," + picture;
+        String line = date + "," + transact_type + "," + spValue_category + "," + amount + "," + note;
         Log.d("LINE", line);
         arrayList.add(line);
 

@@ -9,9 +9,9 @@
         />
 
     <item
-        android:id="@+id/action_category"
+        android:id="@+id/action_editbudget"
         android:orderInCategory="100"
-        android:title="Category"
+        android:title="Edit Budget"
         app:showAsAction = "never"
         android:visible="true"/>
 

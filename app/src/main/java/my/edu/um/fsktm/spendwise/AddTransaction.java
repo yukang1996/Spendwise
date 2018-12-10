@@ -24,7 +24,7 @@ public class AddTransaction extends AppCompatActivity implements AdapterView.OnI
     private TextView tv_transaction_type;
     private Spinner spinner_category;
     private CalendarView calender_view;
-    private EditText editTextAmount, editTextNote, editTextPicture;
+    private EditText editTextAmount, editTextNote;
     private ArrayList<String> arrayList;
     private String transact_type = "Expense";
     private String date = "";
@@ -62,9 +62,8 @@ public class AddTransaction extends AppCompatActivity implements AdapterView.OnI
 //        editTextCategory = (EditText) findViewById(R.id.editTextCategory);
         editTextAmount = (EditText) findViewById(R.id.editTextAmount);
         editTextNote = (EditText) findViewById(R.id.editTextNote);
-        editTextPicture = (EditText) findViewById(R.id.editTextPicture);
 
-        String  amount, note, picture;
+        String  amount, note;
 
 
 
@@ -92,9 +91,8 @@ public class AddTransaction extends AppCompatActivity implements AdapterView.OnI
 
         note = editTextNote.getText().toString();
 
-        picture = editTextPicture.getText().toString();
 
-        String line = date + "," + transact_type + "," + spValue_category + "," + amount + "," + note + "," + picture;
+        String line = date + "," + transact_type + "," + spValue_category + "," + amount + "," + note;
         Log.d("LINE", line);
         arrayList.add(line);
 

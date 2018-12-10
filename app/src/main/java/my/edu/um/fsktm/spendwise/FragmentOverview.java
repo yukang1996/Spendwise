@@ -27,7 +27,6 @@ public class FragmentOverview extends Fragment implements AdapterView.OnItemClic
     String category[];
     String amount[];
     String notes[];
-    String picture[];
     HashMap<String, String> map = new HashMap<>();
     Double income = 0.00, expenses = 0.00, balance = 0.00;
     TextView et_income, et_expenses, et_balance;
@@ -53,19 +52,6 @@ public class FragmentOverview extends Fragment implements AdapterView.OnItemClic
         et_balance = v.findViewById(R.id.tv_setBalance);
         et_balance.setText(String.format("%.2f", balance));
 
-        Spinner month_spinner = getActivity().findViewById(R.id.tb_spinner);
-        month_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("MonthSpinner", "Enter here "+position);
-                MainActivity.month_position = position + 1;
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
 
         return v;
     }
@@ -86,15 +72,19 @@ public class FragmentOverview extends Fragment implements AdapterView.OnItemClic
             }
             else{
                 String []line = date[i].split("-");
-                Log.d("Over Compare", line[1]+" vs " + MainActivity.month_position);
-                if(Integer.parseInt(line[1]) == MainActivity.month_position){
-                    if (transaction_type[i].equalsIgnoreCase("Income")) {
-                        income = income + Double.parseDouble(amount[i]);
-                    }
-                    else{
-                        expenses = expenses + Double.parseDouble(amount[i]);
+                Log.d("Over Compare Year", line[2]+" vs " + MainActivity.pos_year);
+                if(Integer.parseInt(line[2]) == MainActivity.pos_year){
+                    Log.d("Over Compare", line[1]+" vs " + MainActivity.pos_month);
+                    if(Integer.parseInt(line[1]) == MainActivity.pos_month){
+                        if (transaction_type[i].equalsIgnoreCase("Income")) {
+                            income = income + Double.parseDouble(amount[i]);
+                        }
+                        else{
+                            expenses = expenses + Double.parseDouble(amount[i]);
+                        }
                     }
                 }
+
             }
 
 
@@ -113,7 +103,6 @@ public class FragmentOverview extends Fragment implements AdapterView.OnItemClic
         this.category = new String[al.size()];
         this.amount = new String[al.size()];
         this.notes = new String[al.size()];
-        this.picture = new String[al.size()];
         for (int i = 0; i < al.size(); i++){
             translist[i] = al.get(i).toString().split(",");
             date[i] = translist[i][0];
@@ -121,7 +110,6 @@ public class FragmentOverview extends Fragment implements AdapterView.OnItemClic
             category[i] = translist[i][2];
             amount[i] = translist[i][3];
             notes[i] = translist[i][4];
-            picture[i] = translist[i][5];
         }
     }
 
@@ -146,16 +134,20 @@ public class FragmentOverview extends Fragment implements AdapterView.OnItemClic
                 }
                 else{
                     String[] line = date[i].split("-");
-                    Log.d("Over2 compare", line[1] + " vs " + MainActivity.month_position);
-                    if (Integer.parseInt(line[1]) == MainActivity.month_position) {
-                        if (map.containsKey(category[i])) {
-                            double value = Integer.parseInt(map.get(category[i]));
-                            value += Double.parseDouble(amount[i]);
-                            map.put(category[i], valueOf(value));
-                        } else {
-                            map.put(category[i], amount[i]);
+                    Log.d("Over2 compare Year", line[2] + " vs " + MainActivity.pos_year);
+                    if(Integer.parseInt(line[2]) == MainActivity.pos_year){
+                        Log.d("Over2 compare", line[1] + " vs " + MainActivity.pos_month);
+                        if (Integer.parseInt(line[1]) == MainActivity.pos_month) {
+                            if (map.containsKey(category[i])) {
+                                double value = Integer.parseInt(map.get(category[i]));
+                                value += Double.parseDouble(amount[i]);
+                                map.put(category[i], valueOf(value));
+                            } else {
+                                map.put(category[i], amount[i]);
+                            }
                         }
                     }
+
 
                 }
 
