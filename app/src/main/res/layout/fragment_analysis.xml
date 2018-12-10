@@ -1,6 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-</android.support.constraint.ConstraintLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/switchSpend"
+                    android:layout_width="100dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="-8dp"
+                    android:paddingBottom="1dp"
+                    android:paddingTop="1dp"
+                    android:text="Spending" />
+
+                <Button
+                    android:id="@+id/switchBudget"
+                    android:layout_width="100dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="right"
+                    android:layout_marginLeft="0dp"
+                    android:paddingBottom="1dp"
+                    android:paddingTop="1dp"
+                    android:text="Budget" />
+            </LinearLayout>
+
+
+            <!--<android.support.v7.widget.AppCompatSpinner-->
+            <!--android:id="@+id/spinner1"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="30dp"-->
+            <!--android:layout_gravity="right"-->
+            <!--android:layout_marginBottom="20dp">-->
+
+            <!--</android.support.v7.widget.AppCompatSpinner>-->
+
+            <lecho.lib.hellocharts.view.PieChartView
+                android:id="@+id/chart11"
+                android:layout_width="match_parent"
+                android:layout_height="400dp" />
+
+            <!--<lecho.lib.hellocharts.view.LineChartView-->
+            <!--android:id="@+id/chart13"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="500dp" />-->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:id="@+id/labelText" />
+
+
+            <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/table1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </TableLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/switchC"
+                    android:layout_width="150dp"
+                    android:layout_height="32dp"
+                    android:layout_marginRight="-8dp"
+                    android:paddingBottom="1dp"
+                    android:paddingTop="1dp"
+                    android:text="Categories" />
+
+                <Button
+                    android:id="@+id/switchCF"
+                    android:layout_width="150dp"
+                    android:layout_height="32dp"
+                    android:layout_marginLeft="0dp"
+                    android:paddingBottom="1dp"
+                    android:paddingTop="1dp"
+                    android:text="Cash Flow" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

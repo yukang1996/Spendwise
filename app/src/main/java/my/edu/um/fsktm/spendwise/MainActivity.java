@@ -338,6 +338,10 @@ public class MainActivity extends AppCompatActivity {
         transac.setOnClickListener(listener);
         Button overview = findViewById(R.id.overview);
         overview.setOnClickListener(listener);
+
+        Button analyze = (Button) findViewById(R.id.analyze);
+        analyze.setOnClickListener(listener);
+
         FloatingActionButton fabAdd = (FloatingActionButton) findViewById(R.id.fabAdd);
         fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
