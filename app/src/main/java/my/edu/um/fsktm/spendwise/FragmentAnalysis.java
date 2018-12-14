@@ -24,6 +24,7 @@ import java.util.List;
 
 import lecho.lib.hellocharts.model.PieChartData;
 import lecho.lib.hellocharts.model.SliceValue;
+import lecho.lib.hellocharts.view.LineChartView;
 import lecho.lib.hellocharts.view.PieChartView;
 
 public class FragmentAnalysis extends Fragment {
@@ -43,6 +44,7 @@ public class FragmentAnalysis extends Fragment {
 
     ArrayList<TransactionRow> transaction_list = new ArrayList<>();
     PieChartView pieChartView;
+
 
     View frag_view;
     String TAG = "frag anala";
@@ -81,6 +83,8 @@ public class FragmentAnalysis extends Fragment {
             if (temp.length == 5)
                 transaction_list.add(new TransactionRow(temp[0],temp[1],temp[2],Double.parseDouble(temp[3]),temp[4]));
         }
+
+        Log.d(TAG,"Budget list passed into fragment: "+budgetlist.size());
 
         for (int i = 0; i < budgetlist.size(); i++){
             if (i == 0) total_budget = Integer.parseInt(budgetlist.get(i));
@@ -123,6 +127,9 @@ public class FragmentAnalysis extends Fragment {
                     @Override
                     public void onClick(View view) {
                         Intent intent = new Intent(getActivity().getApplicationContext(), CashFlow.class);
+                        intent.putExtra("transaction list", transaction_list);
+                        Log.d(TAG, "running cash flow act");
+                        startActivity(intent);
                     }
                 }
         );
@@ -296,4 +303,6 @@ public class FragmentAnalysis extends Fragment {
         }
 
     }
+
+
 }
