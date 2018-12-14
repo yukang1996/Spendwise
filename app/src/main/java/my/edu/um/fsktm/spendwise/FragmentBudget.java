@@ -144,6 +144,14 @@ public class FragmentBudget extends Fragment implements AdapterView.OnItemClickL
 
 
         }
+        //add everything into hashmap
+        String []budget_category = {"Clothes", "Food", "Transport", "Entertainment", "Others"};
+        for (int i = 0; i < budget_category.length; i++){
+            if(!map.containsKey(budget_category[i])){
+                map.put(budget_category[i], "0");
+            }
+        }
+
         String final_category[] = new String[map.size()];
         int use_percentage[] = new int[map.size()];
         String temp_percentage[] = new String[map.size()];
@@ -154,38 +162,58 @@ public class FragmentBudget extends Fragment implements AdapterView.OnItemClickL
             temp_percentage[j] = (String) m.getValue();
             j++;
         }
+        double value[] = new double[final_category.length];
         for(int i = 0; i < final_category.length; i++){
             Log.d("Final: ", final_category[i] + " and "+ use_percentage[i]);
             double temp = Double.parseDouble(temp_percentage[i]);
+            value[i] = temp;
             temp = (temp / salary) * 100;
             use_percentage[i] = (int) temp;
         }
 
         imgid = new Integer[final_category.length];
+        double value_budget[] = new double[plan_percentage.length];
         for(int i = 0;i < final_category.length; i++){
             if(final_category[i].equalsIgnoreCase("Clothes")){
                 imgid[i] = R.drawable.clothes;
+                value_budget[i] = salary * plan_percentage[0]/100;
             }
             else if(final_category[i].equalsIgnoreCase("Food")){
                 imgid[i] = R.drawable.food;
+                value_budget[i] = salary * plan_percentage[1]/100;
             }
             else if(final_category[i].equalsIgnoreCase("Transport")){
                 imgid[i] = R.drawable.transport;
+                value_budget[i] = salary * plan_percentage[2]/100;
             }
             else if(final_category[i].equalsIgnoreCase("Entertainment")){
                 imgid[i] = R.drawable.entertainment;
+                value_budget[i] = salary * plan_percentage[3]/100;
             }
             else if(final_category[i].equalsIgnoreCase("Others")){
                 imgid[i] = R.drawable.others;
+                value_budget[i] = salary * plan_percentage[4]/100;
             }
             else{
                 imgid[i] = R.drawable.ic_launcher_background;
+                value_budget[i] = 0;
             }
         }
 
 
 
-        BudgetRecordAdapter adapter = new BudgetRecordAdapter(getActivity(), final_category, imgid, use_percentage, plan_percentage);
+
+
+        String value_to_string[] = new String[value.length];
+        for (int i = 0; i <value.length; i++){
+            value_to_string[i] = "RM " + String.valueOf(value[i]) + " / " + value_budget[i];
+        }
+
+
+
+
+
+        BudgetRecordAdapter adapter = new BudgetRecordAdapter(getActivity(), value_to_string, imgid, use_percentage, plan_percentage);
         list = (ListView) getActivity().findViewById(R.id.list);
         list.setOnItemClickListener(this);
         list.setAdapter(adapter);
@@ -214,6 +242,7 @@ public class FragmentBudget extends Fragment implements AdapterView.OnItemClickL
     }
 
     public void processBudgetList(){
+        Log.d("Budget size", String.valueOf(budgetlist.size()));
         plan_percentage = new int[budgetlist.size()-1];
         String temp = budgetlist.get(0).toString();
         Log.d("Temp", temp);
