@@ -26,7 +26,6 @@ import java.util.Date;
 public class MainActivity extends AppCompatActivity {
     public ArrayList<String> arraylist;
     public ArrayList<String> budgetlist;
-    public boolean trigger = false;
     public static int month_position;
     public static String fragment_type = "";
     public static int pos_month;
@@ -46,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
         }
         this.budgetlist = databaseFunction.readBudgFromFile("budget.txt", this);
         if(this.budgetlist == null){
-            trigger = true;
             Log.d("BudgetMessage", "FIrst time user");
             budgetlist = new ArrayList<>();
             budgetlist.add("0");
@@ -89,18 +87,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     fragment.setArguments(bundle);
                 } else if (fragment_type.equalsIgnoreCase("budget")) {
-                    if (trigger == true) {
-                        Log.d("Trigger", String.valueOf(trigger));
-                        trigger = false;
-                        String line = budgetlist.get(0);
 
-                        String temp[] = line.split(",");
-                        budgetlist = new ArrayList<>();
-                        for (int i = 0; i < temp.length; i++) {
-                            Log.d("Temp[i]", temp[i]);
-                            budgetlist.add(temp[i]);
-                        }
-                    }
                     Log.d("Here", String.valueOf(budgetlist));
                     fragment = new FragmentBudget();
                     if (bundle != null) {
@@ -153,18 +140,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     fragment.setArguments(bundle);
                 } else if (fragment_type.equalsIgnoreCase("budget")) {
-                    if (trigger == true) {
-                        Log.d("Trigger", String.valueOf(trigger));
-                        trigger = false;
-                        String line = budgetlist.get(0);
 
-                        String temp[] = line.split(",");
-                        budgetlist = new ArrayList<>();
-                        for (int i = 0; i < temp.length; i++) {
-                            Log.d("Temp[i]", temp[i]);
-                            budgetlist.add(temp[i]);
-                        }
-                    }
                     Log.d("Here", String.valueOf(budgetlist));
                     fragment = new FragmentBudget();
                     if (bundle != null) {
@@ -217,18 +193,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     fragment.setArguments(bundle);
                 } else if (fragment_type.equalsIgnoreCase("budget")) {
-                    if (trigger == true) {
-                        Log.d("Trigger", String.valueOf(trigger));
-                        trigger = false;
-                        String line = budgetlist.get(0);
 
-                        String temp[] = line.split(",");
-                        budgetlist = new ArrayList<>();
-                        for (int i = 0; i < temp.length; i++) {
-                            Log.d("Temp[i]", temp[i]);
-                            budgetlist.add(temp[i]);
-                        }
-                    }
                     Log.d("Here", String.valueOf(budgetlist));
                     fragment = new FragmentBudget();
                     if (bundle != null) {
@@ -279,18 +244,7 @@ public class MainActivity extends AppCompatActivity {
                     fragment.setArguments(bundle);
                 } else if (view == findViewById(R.id.budget)) {
                     fragment_type = "budget";
-                    if(trigger == true) {
-                        Log.d("Trigger", String.valueOf(trigger));
-                        trigger = false;
-                        String line = budgetlist.get(0);
 
-                        String temp[] = line.split(",");
-                        budgetlist = new ArrayList<>();
-                        for (int i = 0; i < temp.length; i++) {
-                            Log.d("Temp[i]", temp[i]);
-                            budgetlist.add(temp[i]);
-                        }
-                    }
                     Log.d("Here", String.valueOf(budgetlist));
                     fragment = new FragmentBudget();
                     if(bundle != null){
@@ -301,17 +255,7 @@ public class MainActivity extends AppCompatActivity {
 
                 } else if (view == findViewById(R.id.analyze)) {
                     fragment_type = "analyze";
-                    if(trigger = true) {
-                        trigger = false;
-                        String line = budgetlist.get(0);
 
-                        String temp[] = line.split(",");
-                        budgetlist = new ArrayList<>();
-                        for (int i = 0; i < temp.length; i++) {
-                            Log.d("Temp[i]", temp[i]);
-                            budgetlist.add(temp[i]);
-                        }
-                    }
                     fragment = new FragmentAnalysis();
                     if(bundle != null){
                         bundle.putStringArrayList("budget", budgetlist);
@@ -385,18 +329,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     fragment.setArguments(bundle);
                 } else if (fragment_type.equalsIgnoreCase("budget")) {
-                    if (trigger == true) {
-                        Log.d("Trigger", String.valueOf(trigger));
-                        trigger = false;
-                        String line = budgetlist.get(0);
 
-                        String temp[] = line.split(",");
-                        budgetlist = new ArrayList<>();
-                        for (int i = 0; i < temp.length; i++) {
-                            Log.d("Temp[i]", temp[i]);
-                            budgetlist.add(temp[i]);
-                        }
-                    }
                     Log.d("Here", String.valueOf(budgetlist));
                     fragment = new FragmentBudget();
                     if (bundle != null) {
@@ -431,18 +364,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("Salary", this.budgetlist.toString());
                 Bundle bundle = new Bundle();
                 if (fragment_type.equalsIgnoreCase("budget")) {
-                    if (trigger == true) {
-                        Log.d("Trigger", String.valueOf(trigger));
-                        trigger = false;
-                        String line = budgetlist.get(0);
 
-                        String temp[] = line.split(",");
-                        budgetlist = new ArrayList<>();
-                        for (int i = 0; i < temp.length; i++) {
-                            Log.d("Temp[i]", temp[i]);
-                            budgetlist.add(temp[i]);
-                        }
-                    }
                     Log.d("Here", String.valueOf(budgetlist));
                     fragment = new FragmentBudget();
                     if (bundle != null) {

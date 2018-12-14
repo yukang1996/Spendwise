@@ -179,7 +179,7 @@ public class FragmentAnalysis extends Fragment {
 
 
         pieChartView = v.findViewById(R.id.chart11);
-
+        Log.d("BudgetListaaaaaaa",budgetlist.toString());
         List<SliceValue> pieData = new ArrayList<>();
         for (int i = 0; i < pie_values.length; i++) {
             if (pie_values[i] > 0)
