@@ -2,10 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="my.edu.um.fsktm.spendwise">
 
-    <uses-permission android:name="android.permission.CAMERA" />
-
-    <uses-feature android:name="android.hardware.camera" />
-
 
     <application
         android:allowBackup="true"
@@ -26,6 +22,8 @@
         <activity android:name=".AddTransactionIncome"></activity>
         <activity android:name=".AddBudget"></activity>
         <activity android:name=".UpdateTransaction"></activity>
+        <activity android:name=".CashFlow"
+            android:screenOrientation="landscape"></activity>
     </application>
 
 </manifest>
