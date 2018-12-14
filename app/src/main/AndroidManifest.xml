@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="my.edu.um.fsktm.spendwise">
+
     <uses-permission android:name="android.permission.CAMERA" />
+
     <uses-feature android:name="android.hardware.camera" />
 
     <application
@@ -18,11 +20,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".AddTransaction"></activity>
-        <activity android:name=".AddTransactionIncome"></activity>
-        <activity android:name=".AddBudget"></activity>
-        <activity android:name=".UpdateTransaction"></activity>
+        <activity android:name=".AddTransaction" />
+        <activity android:name=".AddTransactionIncome" />
+        <activity android:name=".AddBudget" />
+        <activity android:name=".UpdateTransaction" />
+        <activity android:name=".CashFlow"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"></activity>
     </application>
 
 </manifest>

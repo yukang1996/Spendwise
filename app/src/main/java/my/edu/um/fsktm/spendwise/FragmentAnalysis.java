@@ -1,5 +1,6 @@
 package my.edu.um.fsktm.spendwise;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -49,6 +50,8 @@ public class FragmentAnalysis extends Fragment {
     Button switchSpend;
     Button switchBudget;
     TextView labelText;
+    Button switchCat;
+    Button switchFlow;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -94,7 +97,7 @@ public class FragmentAnalysis extends Fragment {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        createPieChart(frag_view, current_month, "Spending");
+                        createPieChart(frag_view, MainActivity.pos_month, MainActivity.pos_year, "Spending");
                     }
                 }
         );
@@ -103,18 +106,30 @@ public class FragmentAnalysis extends Fragment {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        createPieChart(frag_view, current_month, "Budget");
+                        createPieChart(frag_view, MainActivity.pos_month, MainActivity.pos_year, "Budget");
                     }
                 }
         );
 
         current_month = Calendar.getInstance().get(Calendar.MONTH) + 1;
 
-        createPieChart(frag_view, current_month, "Spending");
+        createPieChart(frag_view, MainActivity.pos_month, MainActivity.pos_year, "Spending");
+
+        switchCat = frag_view.findViewById(R.id.switchC);
+        switchFlow = frag_view.findViewById(R.id.switchCF);
+
+        switchFlow.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(getActivity().getApplicationContext(), CashFlow.class);
+                    }
+                }
+        );
 
     }
 
-    public void createPieChart (View v, int month, String mode) {
+    public void createPieChart (View v, int month, int year, String mode) {
         //create pie chart based on type and month
 
         double total_spending = 0.0;
@@ -129,7 +144,8 @@ public class FragmentAnalysis extends Fragment {
             for (int i = 0; i < transaction_list.size(); i++){
                 TransactionRow tr = transaction_list.get(i);
 
-                if (Integer.parseInt(tr.date.split("-")[1]) == month && tr.transaction_type.equalsIgnoreCase("Expense")){
+                String [] tr_date = tr.date.split("-");
+                if (Integer.parseInt(tr_date[1]) == month && Integer.parseInt(tr_date[2]) == year && tr.transaction_type.equalsIgnoreCase("Expense")){
 
                     for (int n = 0; n < plan_names.length; n ++){
                         if (plan_names[n].equalsIgnoreCase(tr.category)){
