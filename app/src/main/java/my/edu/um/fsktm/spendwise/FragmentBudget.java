@@ -1,5 +1,6 @@
 package my.edu.um.fsktm.spendwise;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Layout;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -188,6 +190,17 @@ public class FragmentBudget extends Fragment implements AdapterView.OnItemClickL
         list.setOnItemClickListener(this);
         list.setAdapter(adapter);
 
+        ImageButton editBudget = (ImageButton) getView().findViewById(R.id.edit_budget);
+        editBudget.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), AddBudget.class);
+                intent.putExtra("budget", budgetlist);
+                startActivityForResult(intent, 2);
+                Log.d("Budget", "after that");
+            }
+        });
+
 
 
     }
@@ -211,4 +224,7 @@ public class FragmentBudget extends Fragment implements AdapterView.OnItemClickL
             Log.d("Plan", String.valueOf(plan_percentage[i]));
         }
     }
+
+
+
 }

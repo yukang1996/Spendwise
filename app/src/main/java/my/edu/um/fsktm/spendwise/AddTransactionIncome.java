@@ -24,6 +24,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.xml.validation.Validator;
 
@@ -54,6 +55,9 @@ public class AddTransactionIncome extends AppCompatActivity implements AdapterVi
         String[] type_of_category = {"Salary", "Others"};
         ArrayAdapter<String> adapterCategory = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, type_of_category);
         spinner_category.setAdapter(adapterCategory);
+        Date today_date = new Date();
+        date = sdf.format(today_date);
+        Log.d("By default", date);
         calender_view = new CalendarView(this);
         calender_view = findViewById(R.id.calendarView);
         calender_view.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
@@ -101,6 +105,9 @@ public class AddTransactionIncome extends AppCompatActivity implements AdapterVi
 
         note = editTextNote.getText().toString();
 
+        if(note.isEmpty()){
+            note = " ";
+        }
 
         String line = date + "," + transact_type + "," + spValue_category + "," + amount + "," + note;
         Log.d("LINE", line);

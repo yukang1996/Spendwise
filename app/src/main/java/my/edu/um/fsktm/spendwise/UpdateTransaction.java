@@ -163,6 +163,10 @@ public class UpdateTransaction extends AppCompatActivity {
 
         note = editTextNote.getText().toString();
 
+        if(note.isEmpty()){
+            note = " ";
+        }
+
 
         String line = cur_date + "," + transact_type + "," + spValue_category + "," + amount + "," + note;
         Log.d("LINE", line);

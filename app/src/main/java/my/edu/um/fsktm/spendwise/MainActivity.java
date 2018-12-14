@@ -50,9 +50,13 @@ public class MainActivity extends AppCompatActivity {
         if(this.budgetlist == null){
             trigger = true;
             Log.d("BudgetMessage", "FIrst time user");
-            Intent intent = new Intent(getApplicationContext(), AddBudget.class);
-            intent.putExtra("salary", budgetlist);
-            startActivityForResult(intent, 2);
+            budgetlist = new ArrayList<>();
+            budgetlist.add("0");
+            budgetlist.add("0");
+            budgetlist.add("0");
+            budgetlist.add("0");
+            budgetlist.add("0");
+            budgetlist.add("0");
         }
         else{
             Log.d("BudgetMessage", String.valueOf(budgetlist));
@@ -504,13 +508,6 @@ public class MainActivity extends AppCompatActivity {
 
         public boolean onOptionsItemSelected (MenuItem item){
             switch (item.getItemId()) {
-                case R.id.action_add:
-                    return true;
-                case R.id.action_editbudget:
-                    Intent intent = new Intent(getApplicationContext(), AddBudget.class);
-                    intent.putExtra("salary", budgetlist);
-                    startActivityForResult(intent, 2);
-                    return true;
                 case R.id.action_option:
                     return true;
                 case R.id.action_account:

@@ -15,8 +15,10 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.xml.validation.Validator;
 
@@ -27,6 +29,8 @@ public class AddTransaction extends AppCompatActivity implements AdapterView.OnI
     private EditText editTextAmount, editTextNote;
     private ArrayList<String> arrayList;
     private String transact_type = "Expense";
+    DateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+
     private String date = "";
 
     @Override
@@ -41,6 +45,9 @@ public class AddTransaction extends AppCompatActivity implements AdapterView.OnI
         String[] type_of_category = {"Clothes", "Food", "Transport", "Entertainment", "Others"};
         ArrayAdapter<String> adapterCategory = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, type_of_category);
         spinner_category.setAdapter(adapterCategory);
+        Date today_date = new Date();
+        date = sdf.format(today_date);
+        Log.d("By default", date);
         calender_view = new CalendarView(this);
         calender_view = findViewById(R.id.calendarView);
         calender_view.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
@@ -90,6 +97,10 @@ public class AddTransaction extends AppCompatActivity implements AdapterView.OnI
         }
 
         note = editTextNote.getText().toString();
+
+        if(note.isEmpty()){
+            note = " ";
+        }
 
 
         String line = date + "," + transact_type + "," + spValue_category + "," + amount + "," + note;
