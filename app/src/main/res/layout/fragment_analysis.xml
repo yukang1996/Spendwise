@@ -56,10 +56,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="400dp" />
 
-            <!--<lecho.lib.hellocharts.view.LineChartView-->
-            <!--android:id="@+id/chart13"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="500dp" />-->
+
 
             <TextView
                 android:layout_width="match_parent"
