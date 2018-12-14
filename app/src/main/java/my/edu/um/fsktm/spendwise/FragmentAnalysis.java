@@ -82,6 +82,8 @@ public class FragmentAnalysis extends Fragment {
                 transaction_list.add(new TransactionRow(temp[0],temp[1],temp[2],Double.parseDouble(temp[3]),temp[4]));
         }
 
+        Log.d(TAG,"Budget list passed into fragment: "+budgetlist.size());
+
         for (int i = 0; i < budgetlist.size(); i++){
             if (i == 0) total_budget = Integer.parseInt(budgetlist.get(i));
             else {
