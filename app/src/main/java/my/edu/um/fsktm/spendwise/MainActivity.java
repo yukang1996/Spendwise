@@ -7,7 +7,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -37,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.TB);
         final TextView setTv_year = (TextView)findViewById(R.id.tv_year);
         final Spinner MonthSpinner = findViewById(R.id.tb_spinner);
         DatabaseFunction databaseFunction = new DatabaseFunction();
@@ -147,6 +145,7 @@ public class MainActivity extends AppCompatActivity {
                 setTv_year.setText(String.valueOf(pos_year));
                 Fragment fragment = new FragmentIntro();
                 Bundle bundle = new Bundle();
+                Log.d("FragmentType", fragment_type);
                 if (fragment_type.equalsIgnoreCase("transaction")) {
                     fragment = new FragmentTrans();
                     if (bundle != null) {
@@ -180,6 +179,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     fragment.setArguments(bundle);
                 } else if (fragment_type.equalsIgnoreCase("analyze")) {
+                    fragment = new FragmentAnalysis();
                     if (bundle != null) {
                         bundle.putStringArrayList("budget", budgetlist);
                         bundle.putStringArrayList("array", arraylist);
@@ -243,6 +243,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     fragment.setArguments(bundle);
                 } else if (fragment_type.equalsIgnoreCase("analyze")) {
+                    fragment = new FragmentAnalysis();
                     if (bundle != null) {
                         bundle.putStringArrayList("budget", budgetlist);
                         bundle.putStringArrayList("array", arraylist);
@@ -317,9 +318,6 @@ public class MainActivity extends AppCompatActivity {
                         bundle.putStringArrayList("array", arraylist);
                     }
                     fragment.setArguments(bundle);
-
-
-
                 } else if (view == findViewById(R.id.overview)){
                     fragment_type = "overview";
                     fragment = new FragmentOverview();
@@ -342,7 +340,6 @@ public class MainActivity extends AppCompatActivity {
         transac.setOnClickListener(listener);
         Button overview = findViewById(R.id.overview);
         overview.setOnClickListener(listener);
-
         Button analyze = (Button) findViewById(R.id.analyze);
         analyze.setOnClickListener(listener);
 

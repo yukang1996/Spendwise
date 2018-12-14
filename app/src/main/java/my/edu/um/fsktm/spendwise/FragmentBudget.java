@@ -196,7 +196,7 @@ public class FragmentBudget extends Fragment implements AdapterView.OnItemClickL
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), AddBudget.class);
                 intent.putExtra("budget", budgetlist);
-                startActivityForResult(intent, 2);
+                getActivity().startActivityForResult(intent, 2);
                 Log.d("Budget", "after that");
             }
         });

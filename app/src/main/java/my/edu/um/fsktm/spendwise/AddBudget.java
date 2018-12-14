@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.SeekBar;
@@ -12,7 +13,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class AddBudget extends AppCompatActivity {
-    private EditText editTextSalary, editTextClothes, editTextFood, editTextTransport, editTextEntertainment, editTextOthers;
+    private EditText editTextSalary;
     private SeekBar sb_Clothes, sb_Food, sb_Transport, sb_Entertainment, sb_Others;
     private int per_clothes, per_food, per_transport, per_entertainment, per_others;
 
@@ -149,6 +150,8 @@ public class AddBudget extends AppCompatActivity {
 
         final MediaPlayer mp = new MediaPlayer().create(this, R.raw.mario_coin);
         mp.start();
+
+        Log.d("AddBudget_budget", al.toString());
 
 
 
