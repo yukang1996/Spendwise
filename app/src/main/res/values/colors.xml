@@ -9,4 +9,5 @@
     <color name="colorGrey">#808080</color>
     <color name="colorExpense">#b02626</color>
     <color name="colorIncome">#26b056</color>
+    <color name="colorToolbar">#f3c699</color>
 </resources>
