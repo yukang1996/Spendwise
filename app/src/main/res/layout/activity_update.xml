@@ -15,7 +15,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <CalendarView
                 android:id="@+id/calendarView"
@@ -65,8 +65,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
                 android:layout_marginRight="8dp"
+                android:layout_marginBottom="8dp"
                 android:ems="10"
                 android:hint="@string/amount" />
 
@@ -75,45 +75,42 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
-                android:layout_marginBottom="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginRight="8dp"
+                android:layout_marginBottom="8dp"
                 android:ems="10"
                 android:hint="@string/note" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
                 android:layout_margin="20dp"
-                >
+                android:orientation="horizontal">
+
                 <Button
                     android:id="@+id/buttonCancel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
                     android:onClick="Cancel"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="8dp"
+                    android:layout_weight="1"
                     android:text="@string/cancel" />
 
-                <View
-                    android:layout_width="10dp"
-                    android:layout_height="10dp"
-                    android:layout_weight="1"/>
+                <Button
+                    android:id="@+id/buttonDelete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="Delete"
+                    android:text="Delete"
+                    android:layout_weight="1"
+                    />
 
                 <Button
                     android:id="@+id/buttonSave"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:layout_gravity="center"
+                    android:layout_weight="1"
                     android:onClick="saveRecord"
                     android:text="@string/save" />
-
-
-
 
 
             </LinearLayout>

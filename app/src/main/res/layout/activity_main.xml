@@ -11,13 +11,13 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/TB"
         android:layout_width="0dp"
-        android:layout_height="55dp"
+        android:layout_height="0dp"
         android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/fabAddIncome">
+        app:layout_constraintTop_toBottomOf="@+id/FragOutput">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -67,10 +67,12 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/edit_toolbar"
         android:layout_width="0dp"
-        android:layout_height="55dp"
+        android:layout_height="73dp"
+        android:layout_marginBottom="2dp"
         android:background="#f3c699"
         android:minHeight="?android:attr/actionBarSize"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:layout_constraintBottom_toTopOf="@+id/FragOutput"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -136,33 +138,31 @@
         android:id="@+id/fabAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
         android:backgroundTint="@color/colorBlue"
-        app:layout_constraintEnd_toEndOf="@+id/FragOutput"
-        app:layout_constraintTop_toBottomOf="@+id/FragOutput"
+        app:layout_constraintStart_toEndOf="@+id/fabAddIncome"
+        app:layout_constraintTop_toTopOf="@+id/fabAddIncome"
         app:srcCompat="@drawable/minus" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fabAddIncome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        app:layout_constraintEnd_toStartOf="@+id/fabAdd"
-        app:layout_constraintTop_toBottomOf="@+id/FragOutput"
+        android:layout_marginEnd="60dp"
+        app:layout_constraintBottom_toBottomOf="@+id/TB"
+        app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/baseline_add_black_18dp" />
 
 
     <FrameLayout
         android:id="@+id/FragOutput"
         android:layout_width="0dp"
-        android:layout_height="407dp"
-        android:layout_marginTop="42dp"
-        android:layout_marginBottom="42dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="46dp"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></FrameLayout>
+        app:layout_constraintTop_toBottomOf="@+id/edit_toolbar"></FrameLayout>
 
 
 </android.support.constraint.ConstraintLayout>

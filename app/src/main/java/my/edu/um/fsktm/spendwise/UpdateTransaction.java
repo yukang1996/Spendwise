@@ -37,6 +37,7 @@ public class UpdateTransaction extends AppCompatActivity {
     String amount[];
     String notes[];
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -187,6 +188,15 @@ public class UpdateTransaction extends AppCompatActivity {
     }
 
     public void Cancel(View v){
+        Intent intent = new Intent();
+        intent.putExtra("newarray", al);
+        setResult(RESULT_OK, intent);
+        this.finish();
+    }
+
+    public void Delete(View v){
+        Log.d("Delete:", al.get(position));
+        al.remove(position);
         Intent intent = new Intent();
         intent.putExtra("newarray", al);
         setResult(RESULT_OK, intent);

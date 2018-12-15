@@ -173,7 +173,6 @@ public class FragmentTrans extends Fragment implements AdapterView.OnItemClickLi
             Log.d("Finsih", "finisssssss");
         }
         Log.d("Selecting", selectedItem);
-        Toast.makeText(getActivity(), selectedItem, Toast.LENGTH_SHORT).show();
         String temp_pos = String.valueOf(position);
         Intent intent = new Intent(getContext(), UpdateTransaction.class);
         if(transaction_type[position].equalsIgnoreCase("Income")){
