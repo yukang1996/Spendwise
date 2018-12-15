@@ -134,20 +134,34 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fabAdd"
-        android:layout_width="wrap_content"
+    <android.support.design.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/colorBlue"
-        app:layout_constraintStart_toEndOf="@+id/fabAddIncome"
-        app:layout_constraintTop_toTopOf="@+id/fabAddIncome"
-        app:srcCompat="@drawable/minus" />
+        android:layout_width="wrap_content">
+
+    </android.support.design.widget.CoordinatorLayout>
+
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorWhite"
+            app:layout_constraintStart_toEndOf="@+id/fabAddIncome"
+            app:layout_constraintTop_toTopOf="@+id/fabAddIncome"
+            app:srcCompat="@drawable/minus" />
+
+
+
+
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fabAddIncome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="60dp"
+        android:backgroundTint="@color/colorWhite"
         app:layout_constraintBottom_toBottomOf="@+id/TB"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/baseline_add_black_18dp" />
