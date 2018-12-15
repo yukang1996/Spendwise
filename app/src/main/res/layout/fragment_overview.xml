@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorWhite"
-    android:orientation="vertical">
+    android:background="@drawable/pikachu"
+    android:orientation="vertical"
+    >
 
 
     <LinearLayout
@@ -21,7 +22,9 @@
             android:paddingLeft="20dp"
             android:text="Income"
             android:textColor="@color/colorBlack"
-            android:textSize="30dp" />
+            android:fontFamily="@font/good_unicorn"
+            android:textSize="50dp"
+            />
 
         <TextView
             android:id="@+id/tv_setIncome"
@@ -30,7 +33,8 @@
             android:gravity="center"
             android:text="TextView"
             android:textColor="@color/colorBlack"
-            android:textSize="30dp" />
+            android:fontFamily="@font/good_unicorn"
+            android:textSize="50dp"  />
 
 
 
@@ -50,7 +54,8 @@
             android:paddingLeft="20dp"
             android:text="Expense"
             android:textColor="@color/colorBlack"
-            android:textSize="30dp" />
+            android:fontFamily="@font/good_unicorn"
+            android:textSize="50dp"  />
 
         <TextView
             android:id="@+id/tv_setExpense"
@@ -59,7 +64,8 @@
             android:gravity="center"
             android:text="TextView"
             android:textColor="@color/colorBlack"
-            android:textSize="30dp" />
+            android:fontFamily="@font/good_unicorn"
+            android:textSize="50dp"  />
 
 
 
@@ -88,7 +94,8 @@
             android:paddingLeft="20dp"
             android:text="Balance"
             android:textColor="@color/colorBlack"
-            android:textSize="30dp" />
+            android:fontFamily="@font/good_unicorn"
+            android:textSize="50dp"  />
 
         <TextView
             android:id="@+id/tv_setBalance"
@@ -98,7 +105,8 @@
             android:paddingLeft="30dp"
             android:text="TextView"
             android:textColor="@color/colorBlack"
-            android:textSize="30dp" />
+            android:fontFamily="@font/good_unicorn"
+            android:textSize="50dp"  />
 
 
 
