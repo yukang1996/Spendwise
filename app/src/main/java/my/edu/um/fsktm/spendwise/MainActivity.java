@@ -430,15 +430,12 @@ public class MainActivity extends AppCompatActivity {
             }
             databaseFunction.writeToFile("budget.txt", budgetline, this);
             Log.d("Close", "Safe and close.");
+            fragment_type = "";
             super.onDestroy();
         }
 
         public boolean onOptionsItemSelected (MenuItem item){
             switch (item.getItemId()) {
-                case R.id.action_option:
-                    return true;
-                case R.id.action_account:
-                    return true;
                 default:
                     return super.onOptionsItemSelected(item);
 

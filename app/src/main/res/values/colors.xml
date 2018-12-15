@@ -11,4 +11,9 @@
     <color name="colorExpense">#b02626</color>
     <color name="colorIncome">#26b056</color>
     <color name="colorToolbar">#f3c699</color>
+    <color name="colorClothes">#ffeaa7</color>
+    <color name="colorFood">#55efc4</color>
+    <color name="colorTransport">#dfe6e9</color>
+    <color name="colorEntertainment">#fab1a0</color>
+    <color name="colorOthers">#74b9ff</color>
 </resources>

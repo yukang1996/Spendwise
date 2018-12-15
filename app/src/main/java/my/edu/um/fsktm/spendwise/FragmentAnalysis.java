@@ -39,7 +39,18 @@ public class FragmentAnalysis extends Fragment {
 
     int[] plan_percentage = new int[5];
     String [] plan_names = new String[]{"Clothes","Food","Transport","Entertainment","Others"};
-    ArrayList <Integer> pie_colors = new ArrayList<>(Arrays.asList(Color.BLUE, Color.RED, Color.MAGENTA, Color.GRAY, Color.CYAN));
+    ArrayList <Integer> pie_colors = new ArrayList<>(
+            Arrays.asList(
+                    Color.rgb(116, 185, 255),
+                    Color.rgb(85, 239, 196),
+                    Color.rgb(178, 190, 195),
+                    Color.rgb(250, 177, 160),
+                    Color.rgb(253, 121, 168),
+                    R.color.colorClothes,
+                    R.color.colorFood,
+                    R.color.colorTransport,
+                    R.color.colorEntertainment,
+                    R.color.colorOthers));
     int total_budget;
 
     TextView editSalary;
