@@ -83,7 +83,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        android:layout_gravity="bottom">
+        android:layout_gravity="bottom"
+        android:background="@color/colorToolbar"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -95,7 +97,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="@color/colorWhite"
+                android:background="@color/colorToolbar"
                 android:src="@drawable/back" />
 
             <Spinner
@@ -121,7 +123,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="@color/colorWhite"
+                android:background="@color/colorToolbar"
                 android:src="@drawable/next" />
 
 
@@ -154,8 +156,9 @@
     <FrameLayout
         android:id="@+id/FragOutput"
         android:layout_width="match_parent"
-        android:layout_marginTop="60dp"
-        android:layout_height="470dp"
+        android:layout_height="490dp"
+        android:layout_marginTop="57dp"
+
         android:visibility="visible"></FrameLayout>
 
 
