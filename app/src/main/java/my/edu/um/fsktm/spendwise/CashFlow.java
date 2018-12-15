@@ -68,6 +68,7 @@ public class CashFlow extends AppCompatActivity {
         lineChartView = findViewById(R.id.chartLineGraph);
 
         List axisValues = new ArrayList();
+        //size = 12
         axisData = new String[]{"Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept",
                 "Oct", "Nov", "Dec"};
 
@@ -78,17 +79,17 @@ public class CashFlow extends AppCompatActivity {
         ArrayList<Double> in_values = new ArrayList<>();
 
         //i = 0 = january
-        for (int i = 0; i < axisData.length; i++){
+        //size = 13
+        for (int i = 0; i < axisData.length+1; i++){
             exp_values.add(0.0);
             in_values.add(0.0);
         }
 
-        Line Expenseline = new Line(ExpenseValues).setColor(Color.parseColor("#b02626"));
-        Line Incomeline = new Line(IncomeValues).setColor(Color.parseColor("#26b056"));
-
+        //size = 1 + 12
+        axisValues.add(0, new AxisValue(0).setLabel(""));
         for (int i = 0; i < axisData.length; i++) {
-            axisValues.add(i, new AxisValue(i).setLabel(axisData[i]));
-            Log.d(TAG, "axis data: "+i+" : "+axisData[i]);
+            axisValues.add(i+1, new AxisValue(i+1).setLabel(axisData[i]));
+            Log.d(TAG, "axis data: "+(i+1)+" : "+axisData[i]);
         }
 
         for (int i = 0; i < transaction_list.size(); i++){
@@ -96,37 +97,30 @@ public class CashFlow extends AppCompatActivity {
             String tr_year = tr.date.split("-")[2];
             int tr_month = Integer.parseInt(tr.date.split("-")[1]);
             if (Integer.parseInt(tr_year) == year && tr.transaction_type.equalsIgnoreCase("expense")){
-                double month_value = exp_values.get(tr_month-1);
+                double month_value = exp_values.get(tr_month);
                 month_value+=tr.amount;
-                exp_values.set(tr_month-1, month_value);
+                exp_values.set(tr_month, month_value);
                 Log.d(TAG, "Expense row: "+tr.amount);
 
             } else if (Integer.parseInt(tr_year) == year && tr.transaction_type.equalsIgnoreCase("income")){
-                double month_value = in_values.get(tr_month-1);
+                double month_value = in_values.get(tr_month);
                 month_value+=tr.amount;
-                in_values.set(tr_month-1, month_value);
+                in_values.set(tr_month, month_value);
                 Log.d(TAG, "Income row: "+tr.amount);
             }
         }
 
-//        ExpenseValues.add(new PointValue(tr_month-1, (float)tr.amount));
-//        IncomeValues.add(new PointValue(tr_month-1, (float)tr.amount));
-//        List lines = new ArrayList();
-//        lines.add(Expenseline);
-//        lines.add(Incomeline);
-//        LineChartData data = new LineChartData();
-//        data.setLines(lines);
-
+        //1 - 12
         List<PointValue> Expense_values = new ArrayList<PointValue>();
-        for (int i = 0; i < exp_values.size(); i++){
+        for (int i = 1; i < exp_values.size(); i++){
             double d = exp_values.get(i);
-            Expense_values.add(new PointValue(i+1, (float)d));
+            Expense_values.add(new PointValue(i, (float)d));
         }
 
         List<PointValue> Income_values = new ArrayList<PointValue>();
-        for (int i = 0; i < in_values.size(); i++){
+        for (int i = 1; i < in_values.size(); i++){
             double d = in_values.get(i);
-            Income_values.add(new PointValue(i+1, (float)d));
+            Income_values.add(new PointValue(i, (float)d));
         }
 
         //In most cased you can call data model methods in builder-pattern-like manner.
@@ -141,25 +135,27 @@ public class CashFlow extends AppCompatActivity {
 
         LineChartData data = new LineChartData();
         data.setLines(lines);
-        lineChartView.setLineChartData(data);
 
-//        Axis axis = new Axis();
-//        axis.setValues(axisValues);
-//        Log.d(TAG, "Axis Value: "+axisValues);
-//        axis.setTextSize(16);
-//        axis.setTextColor(Color.parseColor("#03A9F4"));
-//        data.setAxisXBottom(axis);
+        Axis axis = new Axis();
+        axis.setValues(axisValues);
+        Log.d(TAG, "Axis Value: "+axisValues);
+        axis.setTextSize(16);
+        axis.setTextColor(Color.parseColor("#03A9F4"));
+        data.setAxisXBottom(axis);
 //
-//        Axis yAxis = new Axis();
-//        yAxis.setName("Value");
-//        yAxis.setTextColor(Color.parseColor("#03A9F4"));
-//        yAxis.setTextSize(16);
-//        data.setAxisYLeft(yAxis);
+        Axis yAxis = new Axis();
+        //yAxis.setName("Value");
+        yAxis.setTextColor(Color.parseColor("#03A9F4"));
+        yAxis.setTextSize(16);
+        data.setAxisYLeft(yAxis);
 //
-//        lineChartView.setLineChartData(data);
 //        Viewport viewport = new Viewport(lineChartView.getMaximumViewport());
 //        viewport.top = 110;
 //        lineChartView.setMaximumViewport(viewport);
 //        lineChartView.setCurrentViewport(viewport);
+
+
+
+        lineChartView.setLineChartData(data);
     }
 }
