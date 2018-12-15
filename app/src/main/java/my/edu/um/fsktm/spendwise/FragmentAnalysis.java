@@ -101,7 +101,10 @@ public class FragmentAnalysis extends Fragment {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        createPieChart(frag_view, MainActivity.pos_month, MainActivity.pos_year, "Spending");
+                        if (MainActivity.month_position == 13){
+                            createPieChart(frag_view, 13, MainActivity.pos_year, "Spending");
+                        } else
+                            createPieChart(frag_view, MainActivity.pos_month, MainActivity.pos_year, "Spending");
                     }
                 }
         );
@@ -117,7 +120,11 @@ public class FragmentAnalysis extends Fragment {
 
         current_month = Calendar.getInstance().get(Calendar.MONTH) + 1;
 
-        createPieChart(frag_view, MainActivity.pos_month, MainActivity.pos_year, "Spending");
+        //TO DO show all when pos month = 13
+        if (MainActivity.month_position == 13){
+            createPieChart(frag_view, 13, MainActivity.pos_year, "Spending");
+        } else
+            createPieChart(frag_view, MainActivity.pos_month, MainActivity.pos_year, "Spending");
 
         switchCat = frag_view.findViewById(R.id.switchC);
         switchFlow = frag_view.findViewById(R.id.switchCF);
@@ -144,7 +151,27 @@ public class FragmentAnalysis extends Fragment {
 
         labelText = v.findViewById(R.id.labelText);
 
-        if (mode.equalsIgnoreCase("Spending")){
+        if (mode.equalsIgnoreCase("Spending") && month == 13){
+
+            for (int i = 0; i < transaction_list.size(); i++){
+                TransactionRow tr = transaction_list.get(i);
+
+                //get all expenses row
+                if (tr.transaction_type.equalsIgnoreCase("Expense")){
+
+                    for (int n = 0; n < plan_names.length; n ++){
+                        if (plan_names[n].equalsIgnoreCase(tr.category)){
+                            pie_values[n] += tr.amount;
+                            total_spending += tr.amount;
+                        }
+                    }
+
+                }
+            }
+
+            labelText.setText("Total "+mode+": "+total_spending);
+
+        } else if (mode.equalsIgnoreCase("Spending")){
 
             Log.d(TAG, "mode = spending ----- "+transaction_list.size());
 
@@ -199,10 +226,10 @@ public class FragmentAnalysis extends Fragment {
         pieChartData.setSlicesSpacing(10);
         pieChartView.setPieChartData(pieChartData);
 
-        createPieChartTable(v, month, mode);
+        createPieChartTable(v, month, year, mode);
     }
 
-    public void createPieChartTable (View v, int month, String mode) {
+    public void createPieChartTable (View v, int month, int year, String mode) {
         //create pie description table of pie chart based on type and data
 
         TableLayout tl = (TableLayout) v.findViewById(R.id.table1);
@@ -242,12 +269,38 @@ public class FragmentAnalysis extends Fragment {
         double [] percents = new double [plan_names.length];
         double total_spending = 0;
 
-        if (mode.equalsIgnoreCase("Spending")) {
+        if (mode.equalsIgnoreCase("Spending") && month == 13){
 
             for (int i = 0; i < transaction_list.size(); i++){
                 TransactionRow tr = transaction_list.get(i);
 
-                if (Integer.parseInt(tr.date.split("-")[1]) == month && tr.transaction_type.equalsIgnoreCase("Expense")){
+                //get all transaction of expense
+                if (tr.transaction_type.equalsIgnoreCase("Expense")){
+
+                    for (int n = 0; n < plan_names.length; n ++){
+                        if (plan_names[n].equalsIgnoreCase(tr.category)){
+                            RMs[n] += tr.amount;
+                            total_spending += tr.amount;
+
+                        }
+                    }
+
+                }
+            }
+
+            for (int i = 0; i < percents.length; i++){
+                percents[i] += Math.round(RMs[i]/(double)total_spending * 10000) / 100;
+            }
+
+        } else if (mode.equalsIgnoreCase("Spending")) {
+
+            for (int i = 0; i < transaction_list.size(); i++){
+                TransactionRow tr = transaction_list.get(i);
+
+                //get transaction of that month that year and expense
+                if (Integer.parseInt(tr.date.split("-")[1]) == month
+                        && Integer.parseInt(tr.date.split("-")[2]) == year
+                        && tr.transaction_type.equalsIgnoreCase("Expense")){
 
                     for (int n = 0; n < plan_names.length; n ++){
                         if (plan_names[n].equalsIgnoreCase(tr.category)){
