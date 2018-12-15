@@ -2,17 +2,4 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app = "http://schemas.android.com/apk/res-auto">
 
 
-    <item
-        android:id="@+id/action_option"
-        android:orderInCategory="101"
-        android:title="Option"
-        app:showAsAction = "never"
-        android:visible="true"/>
-
-    <item
-        android:id="@+id/action_account"
-        android:orderInCategory="102"
-        android:title="Account"
-        app:showAsAction = "never"
-        android:visible="true"/>
 </menu>

@@ -40,7 +40,7 @@ public class TransactionRecordAdapter extends ArrayAdapter<String> {
         TextView extratxt = (TextView) rowView.findViewById(R.id.textView1);
         TextView extratxt2 = (TextView) rowView.findViewById(R.id.textView2);
 
-        txtTitle.setText(amount[position]);
+        txtTitle.setText("RM"+amount[position]);
         imageView.setImageResource(imgid[position]);
         extratxt.setText("Description "+transaction_type[position]);
         extratxt2.setText("Date: "+date[position]);
