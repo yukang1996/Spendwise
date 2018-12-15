@@ -360,8 +360,16 @@ public class MainActivity extends AppCompatActivity {
         }
         if (requestCode == 2) {
             if (resultCode == RESULT_OK) {
-                this.budgetlist = data.getStringArrayListExtra("salary");
-                Log.d("Salary", this.budgetlist.toString());
+                ArrayList<String> temp = data.getStringArrayListExtra("salary");
+                Log.d("Temp", String.valueOf(temp));
+                if(temp.size() < 1){
+                    Log.d("Orignial", String.valueOf(budgetlist));
+                }
+                else{
+                    this.budgetlist = temp;
+                    Log.d("New", this.budgetlist.toString());
+
+                }
                 Bundle bundle = new Bundle();
                 if (fragment_type.equalsIgnoreCase("budget")) {
 

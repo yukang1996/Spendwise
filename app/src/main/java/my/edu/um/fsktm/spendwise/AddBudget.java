@@ -19,8 +19,9 @@ public class AddBudget extends AppCompatActivity {
     private int per_clothes, per_food, per_transport, per_entertainment, per_others;
     private TextView tv_p_clothes, tv_p_food, tv_p_transport, tv_p_entertainment, tv_p_others, tv_p_total;
     private int total;
-
     private ArrayList<String> al;
+    private ArrayList<String> temp;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +31,7 @@ public class AddBudget extends AppCompatActivity {
         if(this.al == null){
             al = new ArrayList<>();
         }
+        temp = new ArrayList<>(al);
         tv_p_total = findViewById(R.id.current_total);
         tv_p_clothes = findViewById(R.id.tv_percentage_clothes);
         tv_p_food = findViewById(R.id.tv_percentage_food);
@@ -154,6 +156,8 @@ public class AddBudget extends AppCompatActivity {
             editTextSalary.setError("Please enter Salary");
             return;
         }
+
+
         total = per_clothes + per_food + per_entertainment + per_transport + per_others;
         if(total > 100){
             Toast.makeText(AddBudget.this,"The total percentage should not exceed 100%",  Toast.LENGTH_SHORT).show();
@@ -183,6 +187,11 @@ public class AddBudget extends AppCompatActivity {
     }
 
     public void Cancel(View v){
+        Log.d("Budget", String.valueOf(al));
+        if(al == null){
+            al = temp;
+        }
+        Log.d("after Budget", String.valueOf(al));
         Intent intent = new Intent();
         intent.putExtra("salary", al);
         setResult(RESULT_OK, intent);
@@ -193,4 +202,6 @@ public class AddBudget extends AppCompatActivity {
         total = per_clothes + per_food + per_entertainment + per_transport + per_others;
         tv_p_total.setText("Total Percentage: "+ total + "%");
     }
+
+
 }
