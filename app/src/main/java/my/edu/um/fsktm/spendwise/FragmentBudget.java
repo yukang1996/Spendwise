@@ -192,7 +192,7 @@ public class FragmentBudget extends Fragment implements AdapterView.OnItemClickL
                 final_plan_percentage[i] = plan_percentage[2];
             }
             else if(final_category[i].equalsIgnoreCase("Entertainment")){
-                imgid[i] = R.drawable.entertainment;
+                imgid[i] = R.drawable.entertainment2;
                 value_budget[i] = salary * plan_percentage[3]/100;
                 final_plan_percentage[i] = plan_percentage[3];
             }
