@@ -46,11 +46,11 @@ public class FragmentOverview extends Fragment implements AdapterView.OnItemClic
         calculateIncomenExpense();
         calculateBalance();
         et_income = v.findViewById(R.id.tv_setIncome);
-        et_income.setText(String.format("%.2f", income));
+        et_income.setText(String.format("RM%.2f", income));
         et_expenses = v.findViewById(R.id.tv_setExpense);
-        et_expenses.setText(String.format("%.2f", expenses));
+        et_expenses.setText(String.format("RM%.2f", expenses));
         et_balance = v.findViewById(R.id.tv_setBalance);
-        et_balance.setText(String.format("%.2f", balance));
+        et_balance.setText(String.format("RM%.2f", balance));
 
 
         return v;

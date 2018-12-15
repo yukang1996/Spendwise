@@ -214,7 +214,10 @@ public class FragmentBudget extends Fragment implements AdapterView.OnItemClickL
 
         String value_to_string[] = new String[value.length];
         for (int i = 0; i <value.length; i++){
-            value_to_string[i] = "RM " + String.valueOf(value[i]) + " / " + value_budget[i];
+
+            String temp = String.format("%.2f",value[i]);
+            String temp2 = String.format("%.2f", value_budget[i]);
+            value_to_string[i] = "RM" + temp + " / " + temp2;
         }
 
 

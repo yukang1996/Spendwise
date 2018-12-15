@@ -32,7 +32,8 @@ public class OverviewRecordAdapter extends ArrayAdapter<String> {
 
 //        TextView extratxt = (TextView) rowView.findViewById(R.id.textView1);
         txtTitle.setText(category[position]);
-        txtAmount.setText("RM" + amount[position]);
+        double temp = Double.parseDouble(amount[position]);
+        txtAmount.setText(String.format("RM%.2f",temp));
 //        extratxt.setText("Description "+category[position]);
 
         //set progress pivot....

@@ -43,6 +43,7 @@ public class BudgetRecordAdapter extends ArrayAdapter<String> {
         ProgressBar progressBar = (ProgressBar) rowView.findViewById(R.id.progressbar);
 
         try{
+
             txtTitle.setText(category[position]);
             imageView.setImageResource(imgid[position]);
 //        extratxt.setText("Description "+category[position]);
