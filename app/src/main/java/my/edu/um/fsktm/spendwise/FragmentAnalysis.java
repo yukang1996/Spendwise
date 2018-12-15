@@ -117,6 +117,7 @@ public class FragmentAnalysis extends Fragment {
 
         current_month = Calendar.getInstance().get(Calendar.MONTH) + 1;
 
+        //TO DO show all when pos month = 13
         createPieChart(frag_view, MainActivity.pos_month, MainActivity.pos_year, "Spending");
 
         switchCat = frag_view.findViewById(R.id.switchC);

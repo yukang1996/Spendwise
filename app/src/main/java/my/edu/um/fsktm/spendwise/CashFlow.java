@@ -77,7 +77,7 @@ public class CashFlow extends AppCompatActivity {
         ArrayList<Double> exp_values = new ArrayList<>();
         ArrayList<Double> in_values = new ArrayList<>();
 
-
+        //i = 0 = january
         for (int i = 0; i < axisData.length; i++){
             exp_values.add(0.0);
             in_values.add(0.0);
@@ -102,7 +102,9 @@ public class CashFlow extends AppCompatActivity {
                 Log.d(TAG, "Expense row: "+tr.amount);
 
             } else if (Integer.parseInt(tr_year) == year && tr.transaction_type.equalsIgnoreCase("income")){
-
+                double month_value = in_values.get(tr_month-1);
+                month_value+=tr.amount;
+                in_values.set(tr_month-1, month_value);
                 Log.d(TAG, "Income row: "+tr.amount);
             }
         }
@@ -115,23 +117,23 @@ public class CashFlow extends AppCompatActivity {
 //        LineChartData data = new LineChartData();
 //        data.setLines(lines);
 
-        List<PointValue> values = new ArrayList<PointValue>();
-        values.add(new PointValue(0, 2));
-        values.add(new PointValue(1, 4));
-        values.add(new PointValue(2, 3));
-        values.add(new PointValue(3, 4));
+        List<PointValue> Expense_values = new ArrayList<PointValue>();
+        for (int i = 0; i < exp_values.size(); i++){
+            double d = exp_values.get(i);
+            Expense_values.add(new PointValue(i+1, (float)d));
+        }
 
-        List<PointValue> values2 = new ArrayList<PointValue>();
-        values2.add(new PointValue(0, 1));
-        values2.add(new PointValue(1, 2));
-        values2.add(new PointValue(2, 2));
-        values2.add(new PointValue(3, 3));
+        List<PointValue> Income_values = new ArrayList<PointValue>();
+        for (int i = 0; i < in_values.size(); i++){
+            double d = in_values.get(i);
+            Income_values.add(new PointValue(i+1, (float)d));
+        }
 
         //In most cased you can call data model methods in builder-pattern-like manner.
-        Line line = new Line(values);
-        line.setColor(Color.BLUE);
-        Line line2 = new Line(values2);
-        line2.setColor(Color.RED);
+        Line line = new Line(Expense_values);
+        line.setColor(Color.parseColor("#b02626"));
+        Line line2 = new Line(Income_values);
+        line2.setColor(Color.parseColor("#26b056"));
         List<Line> lines = new ArrayList<Line>();
         lines.add(line);
         lines.add(line2);
