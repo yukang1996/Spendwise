@@ -1,8 +1,11 @@
 package my.edu.um.fsktm.spendwise;
 
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.ColorInt;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -73,6 +76,7 @@ public class FragmentAnalysis extends Fragment {
 
         return v;
     }
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
 
@@ -96,6 +100,8 @@ public class FragmentAnalysis extends Fragment {
 
         switchSpend = frag_view.findViewById(R.id.switchSpend);
         switchBudget = frag_view.findViewById(R.id.switchBudget);
+        switchSpend.setBackgroundTintList(getContext().getResources().getColorStateList(R.color.colorBtGrey));
+        switchBudget.setBackgroundTintList(getContext().getResources().getColorStateList(R.color.colorWhite));
 
         switchSpend.setOnClickListener(
                 new View.OnClickListener() {
@@ -105,6 +111,8 @@ public class FragmentAnalysis extends Fragment {
                             createPieChart(frag_view, 13, MainActivity.pos_year, "Spending");
                         } else
                             createPieChart(frag_view, MainActivity.pos_month, MainActivity.pos_year, "Spending");
+                        switchBudget.setBackgroundTintList(getContext().getResources().getColorStateList(R.color.colorWhite));
+                        switchSpend.setBackgroundTintList(getContext().getResources().getColorStateList(R.color.colorBtGrey));
                     }
                 }
         );
@@ -114,6 +122,8 @@ public class FragmentAnalysis extends Fragment {
                     @Override
                     public void onClick(View view) {
                         createPieChart(frag_view, MainActivity.pos_month, MainActivity.pos_year, "Budget");
+                        switchSpend.setBackgroundTintList(getContext().getResources().getColorStateList(R.color.colorWhite));
+                        switchBudget.setBackgroundTintList(getContext().getResources().getColorStateList(R.color.colorBtGrey));
                     }
                 }
         );
