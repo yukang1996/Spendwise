@@ -57,7 +57,8 @@
 
             <lecho.lib.hellocharts.view.LineChartView
                 android:id="@+id/chartLineGraph"
-                android:layout_width="match_parent"
+                android:layout_gravity="center"
+                android:layout_width="600dp"
                 android:layout_height="300dp"
                 android:layout_margin="20dp"/>
 
