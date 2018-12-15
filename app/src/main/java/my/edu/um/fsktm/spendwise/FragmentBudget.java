@@ -30,6 +30,7 @@ public class FragmentBudget extends Fragment implements AdapterView.OnItemClickL
     String amount[];
     String notes[];
     int [] plan_percentage;
+    int [] final_plan_percentage;
     TextView editSalary;
     double salary;
     Integer[] imgid;
@@ -173,30 +174,37 @@ public class FragmentBudget extends Fragment implements AdapterView.OnItemClickL
 
         imgid = new Integer[final_category.length];
         double value_budget[] = new double[plan_percentage.length];
+        final_plan_percentage = new int[plan_percentage.length];
         for(int i = 0;i < final_category.length; i++){
             if(final_category[i].equalsIgnoreCase("Clothes")){
                 imgid[i] = R.drawable.clothes;
                 value_budget[i] = salary * plan_percentage[0]/100;
+                final_plan_percentage[i] = plan_percentage[0];
             }
             else if(final_category[i].equalsIgnoreCase("Food")){
                 imgid[i] = R.drawable.food;
                 value_budget[i] = salary * plan_percentage[1]/100;
+                final_plan_percentage[i] = plan_percentage[1];
             }
             else if(final_category[i].equalsIgnoreCase("Transport")){
                 imgid[i] = R.drawable.transport;
                 value_budget[i] = salary * plan_percentage[2]/100;
+                final_plan_percentage[i] = plan_percentage[2];
             }
             else if(final_category[i].equalsIgnoreCase("Entertainment")){
                 imgid[i] = R.drawable.entertainment;
                 value_budget[i] = salary * plan_percentage[3]/100;
+                final_plan_percentage[i] = plan_percentage[3];
             }
             else if(final_category[i].equalsIgnoreCase("Others")){
                 imgid[i] = R.drawable.others;
                 value_budget[i] = salary * plan_percentage[4]/100;
+                final_plan_percentage[i] = plan_percentage[4];
             }
             else{
                 imgid[i] = R.drawable.ic_launcher_background;
                 value_budget[i] = 0;
+                final_plan_percentage[i] = 0;
             }
         }
 
@@ -213,7 +221,7 @@ public class FragmentBudget extends Fragment implements AdapterView.OnItemClickL
 
 
 
-        BudgetRecordAdapter adapter = new BudgetRecordAdapter(getActivity(), value_to_string, imgid, use_percentage, plan_percentage);
+        BudgetRecordAdapter adapter = new BudgetRecordAdapter(getActivity(), value_to_string, imgid, use_percentage, final_plan_percentage);
         list = (ListView) getActivity().findViewById(R.id.list);
         list.setOnItemClickListener(this);
         list.setAdapter(adapter);
