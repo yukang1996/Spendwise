@@ -152,9 +152,9 @@
         android:layout_margin="10dp">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/entertainment" />
+            android:layout_width="37dp"
+            android:layout_height="37dp"
+            android:src="@drawable/entertainment2" />
 
         <LinearLayout
             android:layout_width="match_parent"

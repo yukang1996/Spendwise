@@ -119,7 +119,7 @@ public class FragmentTrans extends Fragment implements AdapterView.OnItemClickLi
                 imgid[i] = R.drawable.transport;
             }
             else if(category[i].equalsIgnoreCase("Entertainment")){
-                imgid[i] = R.drawable.entertainment;
+                imgid[i] = R.drawable.entertainment2;
             }
             else if(category[i].equalsIgnoreCase("Others")){
                 imgid[i] = R.drawable.others;
