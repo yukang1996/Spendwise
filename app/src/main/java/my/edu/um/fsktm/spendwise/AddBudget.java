@@ -40,6 +40,7 @@ public class AddBudget extends AppCompatActivity {
         tv_p_others = findViewById(R.id.tv_percentage_others);
 
 
+
         sb_Clothes = findViewById(R.id.seekBarClothes);
         sb_Clothes.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
